@@ -1,0 +1,29 @@
+{
+  "name": "vue-fuzzy",
+  "private": true,
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "files": ["dist"],
+  "dependencies": {
+    "vue": "^3.2.25"
+  },
+  "main": "./dist/vue-fuzzy.umd.js",
+	"module": "./dist/vue-fuzzy.es.js",
+  "exports": {
+    "." : {
+      "import": "./dist/vue-fuzzy.es.js",
+      "require": "./dist/vue-fuzzy.es.js"
+    }
+  },
+  "devDependencies": {
+    "@types/node": "^17.0.23",
+    "@vitejs/plugin-vue": "^2.3.0",
+    "typescript": "^4.5.4",
+    "vite": "^2.9.0",
+    "vue-tsc": "^0.29.8"
+  }
+}
