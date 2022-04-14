@@ -1,5 +1,5 @@
 {
-  "include": ["core/index.ts", "src/**/*.d.ts"],
+  "include": ["core/index.ts", "playground/**/*.d.ts"],
   "compilerOptions": {
     "moduleResolution": "node",
     "sourceMap": true,

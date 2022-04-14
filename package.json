@@ -27,7 +27,9 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build && tsc -p ./tsconfig.build.json",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "pub": "npm run build && npm version patch && npm publish --access public --force"
+
   },
   "dependencies": {
     "element-plus": "^2.1.9",
