@@ -3,10 +3,10 @@ import type { AxiosInstance } from 'axios'
 import Fuzzy from './Fuzzy/index.vue'
 import { setRequest } from './shared'
 import './style/index.scss'
-import 'virtual:windi.css'
 
 export interface FuzzyOptions {
   request: AxiosInstance
+  componentName: string
 }
 
 /**
@@ -15,5 +15,9 @@ export interface FuzzyOptions {
  */
 export function FuzzyInstall<T extends Component>(App: App<T>, options: FuzzyOptions) {
   setRequest(options.request)
-  App.component('VueFuzzy', Fuzzy)
+  App.component(
+    options.componentName
+      ? options.componentName
+      : 'Fuzzy',
+    Fuzzy)
 }

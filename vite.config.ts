@@ -8,7 +8,7 @@ import AutoImport from 'unplugin-auto-import/vite'
 export default defineConfig({
   resolve: {
     alias: {
-      '~/': `${path.resolve(__dirname, 'src')}/`,
+      '~/': `${path.resolve(__dirname, 'playground')}/`,
     },
   },
   css: {
@@ -41,7 +41,6 @@ export default defineConfig({
     ],
     exclude: [
       'vue-demi',
-      'element-plus',
     ],
   },
   build: {

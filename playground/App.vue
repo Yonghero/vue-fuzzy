@@ -4,7 +4,9 @@ import { config } from './assets/config.ts'
 </script>
 
 <template>
-  <VueFuzzy :config="config" />
+  <div class="w-full h-full box-border bg-light-100">
+    <Fuzzy :config="config" />
+  </div>
 </template>
 <style>
 </style>

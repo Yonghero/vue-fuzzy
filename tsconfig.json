@@ -8,16 +8,14 @@
     "jsx": "preserve",
     "sourceMap": true,
     "resolveJsonModule": true,
-    "isolatedModules": true,
     "esModuleInterop": true,
     "lib": ["esnext", "dom"],
     "suppressImplicitAnyIndexErrors": true,
     "paths": {
-      "~/*": ["./src/*"]
+      "~/*": ["./playground/*"]
     },
   },
-  "types": ["element-plus/global", "src/typings/*.d.ts"],
-  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue", "core/index.ts"],
-  "references": [{ "path": "./tsconfig.node.json" }],
-  "exclude": ["node_modules"]
+  "types": ["element-plus/global", "playground/typings/*.d.ts"],
+  "include": ["playground/**/*.ts", "playground/**/*.d.ts", "playground/**/*.tsx", "playground/**/*.vue"],
+  "exclude": ["lib", "node_modules"]
 }

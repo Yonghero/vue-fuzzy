@@ -21,8 +21,7 @@
   "dependencies": {
     "element-plus": "^2.1.9",
     "vue": "^3.2.25",
-    "vue-demi": "^0.12.5",
-    "windicss": "^3.4.2"
+    "vue-demi": "^0.12.5"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^0.16.1",
@@ -40,7 +39,8 @@
     "unplugin-auto-import": "^0.6.1",
     "unplugin-vue-components": "^0.17.21",
     "vite": "^2.9.0",
-    "vite-plugin-windicss": "^1.6.1",
-    "vue-tsc": "^0.29.8"
+    "vite-plugin-windicss": "^1.8.4",
+    "vue-tsc": "^0.29.8",
+    "windicss": "^3.5.1"
   }
 }
