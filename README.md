@@ -1,16 +1,126 @@
-# Vue 3 + Typescript + Vite
+![](https://img.shields.io/badge/component-fuzzy-red.svg?style=for-the-badge&logo=Vue.js) ![](https://img.shields.io/badge/npm-v8.5.2-orange?style=for-the-badge&logo=npm& )
 
-This template should help get you started developing with Vue 3 and Typescript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
 
-## Recommended IDE Setup
+- [Vue-Fuzzy](#vue-fuzzy)
+- [Install](#install)
+- [Quick Start](#quick-start)
+- [Config](#config)
 
-- [VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.volar)
 
-## Type Support For `.vue` Imports in TS
+### Vue-Fuzzy
 
-Since TypeScript cannot handle type information for `.vue` imports, they are shimmed to be a generic Vue component type by default. In most cases this is fine if you don't really care about component prop types outside of templates. However, if you wish to get actual prop types in `.vue` imports (for example to get props validation when using manual `h(...)` calls), you can enable Volar's Take Over mode by following these steps:
+> 基于 vue3 | ts | element-plus | windcss 制作的一个的用于后台管理系统、
+> 可通过配置提供增删改查一站式服务的组件
 
-1. Run `Extensions: Show Built-in Extensions` from VSCode's command palette, look for `TypeScript and JavaScript Language Features`, then right click and select `Disable (Workspace)`. By default, Take Over mode will enable itself if the default TypeScript extension is disabled.
-2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
+### Install
+``` ts
+import { createApp } from 'vue'
+import ElementPlus from 'element-plus'
+import axios from 'axios'
+import 'windi.css'
+import { FuzzyInstall } from '../core/index'
+import App from './App.vue'
 
-You can learn more about Take Over mode [here](https://github.com/johnsoncodehk/volar/discussions/471).
+const axiosInstance = axios.create()
+
+createApp(App)
+  .use(ElementPlus)
+  .use(FuzzyInstall, {
+    request: axiosInstance,
+  })
+  .mount('#app')
+```
+
+### Quick Start
+
+``` vue
+<template>
+  <Fuzzy :config="config"/>
+</template>
+
+<script lang="ts">
+import config from "./config.ts"
+</script>
+```
+
+### Config
+
+``` ts
+
+import { FormItemEnum } from './types'
+
+// 单页面配置
+// 具体字段配置信息 查看 ts docs
+const config: TemplateConfiguration = [
+  api: 'v1.api',
+  title: 'Fuzzy',
+  feature: { create: true, delete: true, update: true },
+  pagination: {
+    size: 10,
+  },
+  templates: [
+    {
+      label: '序号',
+      value: 'serialNumber',
+      visible: {
+        table: true,
+      },
+    },
+    {
+      label: '姓名',
+      value: 'name',
+      defaultQueryValue: '我叫fuzzy',
+      require: true,
+      visible: {
+        query: true,
+        table: true,
+        create: true,
+        update: true,
+      },
+      render: (row: any) => h('div', { style: 'color: red' }, [row.$index]),
+    },
+    {
+      label: '爱好',
+      value: 'hobby',
+      type: FormItemEnum.select,
+      items: [{ label: '默认', value: 'initial'}],
+      require: true,
+      visible: {
+        query: true,
+        table: true,
+        create: true,
+        update: true,
+      },
+      fetchQuery() { // 支持异步加载items
+        setTimeout(() => {
+          this.items.push(...[{ label: '打篮球', value: 'bk' }, { label: '踢足球', value: 'bk' }])
+        }, 500)
+      },
+    },
+    {
+      label: '时间',
+      value: 'time',
+      type: FormItemEnum.datePicker,
+      visible: {
+        query: true,
+        table: true,
+        create: true,
+        update: true,
+      },
+    },
+  ],
+  tableOperation: {
+    show: true,
+    operator: [
+      {
+        label: '自定义',
+        value: 'diy',
+        onClick: (row: any) => {
+          console.log('自定义按钮', row)
+        },
+      },
+    ],
+  },
+]
+
+```
