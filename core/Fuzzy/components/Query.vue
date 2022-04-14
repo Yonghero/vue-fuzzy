@@ -140,7 +140,7 @@ const handleCreate = () => {
   fuzzyHandler.createBeforePop && fuzzyHandler.createBeforePop(expose)
 }
 const handleEvent = () => {
-  if (fuzzyHandler.queryBefore) {
+  if (fuzzyHandler && fuzzyHandler.queryBefore) {
     fuzzyHandler.queryBefore({ data: queryModel.value.model, current: queryModel.value }).then((data: any) => {
       queryModel.value.handleEvent(data)
     })

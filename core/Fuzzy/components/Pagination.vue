@@ -27,8 +27,7 @@ const layout = computed(() => {
   return 'prev, pager, next'
 })
 const handleEvent = (e: number) => {
-  console.log(fuzzyHandler, 'FuzzyHandler')
-  if (fuzzyHandler.queryBefore) {
+  if (fuzzyHandler && fuzzyHandler.queryBefore) {
     fuzzyHandler.queryBefore({ data: queryModel.value.model, current: queryModel.value }).then((data: any) => {
       pagingModel.value.handleEvent(e, data)
     })

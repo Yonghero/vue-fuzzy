@@ -1,6 +1,6 @@
 {
   "name": "vue-fuzzy",
-  "version": "1.0.9",
+  "version": "1.0.12",
   "files": [
     "lib"
   ],
@@ -12,6 +12,7 @@
   },
   "main": "./lib/vue-fuzzy.umd.js",
   "module": "./lib/vue-fuzzy.es.js",
+  "types": "./lib/index.d.ts",
   "scripts": {
     "dev": "vite",
     "build": "vite build && tsc -p ./tsconfig.build.json",
