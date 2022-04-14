@@ -18,7 +18,7 @@ import { createApp } from 'vue'
 import ElementPlus from 'element-plus'
 import axios from 'axios'
 import 'windi.css'
-import { FuzzyInstall } from '../core/index'
+import { FuzzyInstall } from 'vue-fuzzy'
 import App from './App.vue'
 
 const axiosInstance = axios.create()
