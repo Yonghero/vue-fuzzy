@@ -11,12 +11,24 @@ export default defineConfig({
       '~/': `${path.resolve(__dirname, 'src')}/`,
     },
   },
+  css: {
+    preprocessorOptions: {
+      css: {
+        charset: false,
+      },
+      style: {
+        charset: false,
+      },
+      scss: {
+        charset: false,
+      },
+    },
+  },
   plugins: [
     vue(),
     vueJsx(),
     WindiCSS(),
     AutoImport({
-      // resolvers: [ElementPlusResolver()],
       imports: [
         'vue',
       ],
@@ -29,15 +41,17 @@ export default defineConfig({
     ],
     exclude: [
       'vue-demi',
+      'element-plus',
     ],
   },
   build: {
     lib: {
-      entry: path.resolve(__dirname, 'src/index.ts'),
+      entry: path.resolve(__dirname, 'core/index.ts'),
       name: 'Fuzzy',
       fileName: format => `vue-fuzzy.${
         format}.js`,
     },
+    outDir: 'lib',
     rollupOptions: {
       external: ['vue'],
       output: {

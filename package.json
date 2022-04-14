@@ -1,20 +1,21 @@
 {
   "name": "vue-fuzzy",
-  "private": true,
-  "version": "0.0.0",
+  "version": "1.0.7",
   "files": [
-    "dist"
+    "lib"
   ],
   "exports": {
     ".": {
-      "import": "./dist/vue-fuzzy.es.js",
-      "require": "./dist/vue-fuzzy.es.js"
+      "import": "./lib/vue-fuzzy.es.js",
+      "require": "./lib/vue-fuzzy.es.js"
     }
   },
-  "main": "./dist/vue-fuzzy.umd.js",
-  "module": "./dist/vue-fuzzy.es.js",
+  "types": "./lib/index.d.ts",
+  "main": "./lib/vue-fuzzy.umd.js",
+  "module": "./lib/vue-fuzzy.es.js",
   "scripts": {
     "dev": "vite",
+    // "build": "vite build && tsc -p ./tsconfig.build.json",
     "build": "vite build",
     "preview": "vite preview"
   },

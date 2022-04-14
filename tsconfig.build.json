@@ -1,0 +1,8 @@
+{
+  "extends": "./tsconfig.json",
+  "include": ["core/index.ts"],
+  "compilerOptions": {
+    "emitDeclarationOnly": true,
+    "declaration": true
+  }
+}

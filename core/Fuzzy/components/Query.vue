@@ -36,6 +36,7 @@
           filterable
           :placeholder="placeholder || '请选择' + label"
           :size="size || 'default'"
+          @change="selectChange(value)"
         >
           <el-option
             v-for="item in items"
@@ -147,6 +148,11 @@ const handleEvent = () => {
   else {
     queryModel.value.handleEvent({})
   }
+}
+
+const selectChange = (val: string) => {
+  if (fuzzyHandler && fuzzyHandler.querySelectChange)
+    fuzzyHandler.querySelectChange({ trigger: val, model: queryModel.value })
 }
 
 </script>

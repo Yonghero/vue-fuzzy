@@ -1,0 +1,11 @@
+import type { InjectionKey } from 'vue';
+import type { TemplateConfiguration } from '.';
+declare const ConfigProvide: InjectionKey<TemplateConfiguration>;
+declare const UpdateModelProvide: InjectionKey<(index: number) => void>;
+declare const QueryModelProvide: InjectionKey<any>;
+declare const BarModelProvide: InjectionKey<any>;
+declare const TableModelProvide: InjectionKey<any>;
+declare const PagingModelProvide: InjectionKey<any>;
+declare const RequestModelProvide: InjectionKey<any>;
+declare const FuzzyHandlerProvide: InjectionKey<any>;
+export { ConfigProvide, UpdateModelProvide, QueryModelProvide, BarModelProvide, TableModelProvide, PagingModelProvide, RequestModelProvide, FuzzyHandlerProvide, };
