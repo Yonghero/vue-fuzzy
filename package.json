@@ -1,9 +1,20 @@
 {
   "name": "vue-fuzzy",
   "version": "1.0.12",
+  "description": "On the background management system Fuzzy Provides one - stop add, delete, change and check configurable component",
+  "keywords": [
+    "npm",
+    "younghero",
+    "yonghero",
+    "javascript",
+    "vue",
+    "component"
+  ],
+  "repository": "https://github.com/Yonghero/vue-fuzzy.git",
   "files": [
     "lib"
   ],
+  "homepage": "https://github.com/Yonghero/vue-fuzzy.git",
   "exports": {
     ".": {
       "import": "./lib/vue-fuzzy.es.js",
