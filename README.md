@@ -1,4 +1,4 @@
-![](https://img.shields.io/badge/component-fuzzy-red.svg?style=for-the-badge&logo=Vue.js) ![](https://img.shields.io/badge/npm-v8.5.2-orange?style=for-the-badge&logo=npm& )
+![](https://img.shields.io/badge/component-fuzzy-red.svg?style=for-the-badge&logo=Vue.js ) ![](https://img.shields.io/badge/npm-v8.5.2-orange?style=for-the-badge&logo=npm& )
 
 
 - [Vue-Fuzzy](#vue-fuzzy)
