@@ -1,8 +1,17 @@
 {
-  "extends": "./tsconfig.json",
-  "include": ["core/index.ts"],
+  "include": ["core/index.ts", "src/**/*.d.ts"],
   "compilerOptions": {
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "target": "esnext",
     "emitDeclarationOnly": true,
-    "declaration": true
-  }
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "declaration": true,
+    "declarationDir": "lib",
+    "lib": ["esnext", "dom"],
+    "skipLibCheck": true,
+    "types": ["element-plus/global", "axios"]
+  },
+  "references": [{ "path": "./tsconfig.node.json" }],
 }

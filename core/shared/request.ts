@@ -1,4 +1,5 @@
 import type { AxiosInstance } from 'axios'
+import { ref } from 'vue'
 export const axiosInstance = ref<AxiosInstance>()
 
 export function getRequest(): AxiosInstance {
