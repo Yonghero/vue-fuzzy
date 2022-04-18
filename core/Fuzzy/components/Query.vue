@@ -24,7 +24,7 @@
                  datePickerType,
                  rangeSeparator,
                  startPlaceholder,
-                 EndPlaceholder
+                 endPlaceholder
         } of queryModel.data"
         :key="value"
         :label="label"
@@ -69,7 +69,7 @@
           :type="datePickerType"
           :range-separator="rangeSeparator"
           :start-placeholder="startPlaceholder"
-          :end-placeholder="EndPlaceholder"
+          :end-placeholder="endPlaceholder"
         />
       </el-form-item>
       <el-button
