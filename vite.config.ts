@@ -32,7 +32,7 @@ export default defineConfig({
       imports: [
         'vue',
       ],
-      dts: './src/auto-imports.d.ts',
+      dts: './playground/auto-imports.d.ts',
     }),
   ],
   optimizeDeps: {
