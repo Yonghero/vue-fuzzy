@@ -4,6 +4,7 @@
 - [Vue-Fuzzy](#vue-fuzzy)
 - [Install](#install)
 - [Quick Start](#quick-start)
+- [JS DOCX](#js-docx)
 - [Config](#config)
 
 
@@ -42,6 +43,12 @@ createApp(App)
 import config from "./config.ts"
 </script>
 ```
+
+
+### JS DOCX
+
+![image](https://github.com/Yonghero/vue-fuzzy/blob/main/playground/assets/fuzzy-docs.gif)
+
 
 ### Config
 
