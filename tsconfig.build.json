@@ -8,6 +8,7 @@
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "declaration": true,
+    "removeComments": false,
     "declarationDir": "lib",
     "lib": ["esnext", "dom"],
     "skipLibCheck": true,
