@@ -43,6 +43,7 @@ createApp(App)
 import config from "./config.ts"
 </script>
 ```
+![image](https://github.com/Yonghero/vue-fuzzy/blob/main/playground/assets/live.gif)
 
 
 ### JS DOCX
