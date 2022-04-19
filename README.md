@@ -47,6 +47,8 @@ import config from "./config.ts"
 
 ### JS DOCX
 
+[文档地址](https://github.com/Yonghero/vue-fuzzy/blob/main/core/Fuzzy/types/index.d.ts)
+
 ![image](https://github.com/Yonghero/vue-fuzzy/blob/main/playground/assets/fuzzy-docs.gif)
 
 
@@ -57,7 +59,7 @@ import config from "./config.ts"
 import { FormItemEnum } from './types'
 
 // 单页面配置
-// 具体字段配置信息 查看 ts docs
+// 具体字段配置信息 查看 js docx
 const config: TemplateConfiguration = [
   api: 'v1.api',
   title: 'Fuzzy',
