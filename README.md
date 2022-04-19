@@ -48,7 +48,7 @@ import config from "./config.ts"
 
 ### JS DOCX
 
-[文档地址](https://github.com/Yonghero/vue-fuzzy/blob/main/core/Fuzzy/types/index.d.ts)
+[文档地址](https://github.com/Yonghero/vue-fuzzy/blob/main/core/Fuzzy/types/index.ts)
 
 ![image](https://github.com/Yonghero/vue-fuzzy/blob/main/playground/assets/fuzzy-docs.gif)
 
