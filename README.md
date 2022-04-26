@@ -14,7 +14,7 @@
 > 可通过配置提供增删改查一站式服务的组件
 
 ### Install
-``` ts
+``` tsx
 import { createApp } from 'vue'
 import ElementPlus from 'element-plus'
 import axios from 'axios'
@@ -24,10 +24,17 @@ import App from './App.vue'
 
 const axiosInstance = axios.create()
 
+
 createApp(App)
   .use(ElementPlus)
   .use(FuzzyInstall, {
-    request: axiosInstance,
+    componentName: 'VueFuzzy' // 可自定义组件名称
+    request: axiosInstance, // 请求实例
+    implResponse: (response: any): ResponseHandler => ({ // map响应对象
+      data: response.data.data,
+      success: response.status === 200,
+      total: response.data.total,
+    } as FuzzyOptions),
   })
   .mount('#app')
 ```
