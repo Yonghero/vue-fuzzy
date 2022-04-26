@@ -16,6 +16,6 @@
     },
   },
   "types": ["element-plus/global", "playground/typings/*.d.ts"],
-  "include": ["playground/**/*.ts", "playground/**/*.d.ts", "playground/**/*.tsx", "playground/**/*.vue"],
+  "include": ["core/**/*.ts", "core/**/*.tsx", "core/**/*.vue", "playground/**/*.ts", "playground/**/*.d.ts", "playground/**/*.tsx", "playground/**/*.vue"],
   "exclude": ["lib", "node_modules"]
 }

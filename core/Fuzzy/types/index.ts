@@ -260,6 +260,15 @@ interface ItemProp {
   label: string
   value: any
 }
+
+export interface ResponseHandler {
+  data: Array<any>
+  success: boolean
+  total: string | number
+}
+
+export type ImplResponseType = (response: any) => ResponseHandler
+
 export { FormItemEnum, OperatorCmd }
 export type { AllModels, TemplateConfiguration, Templates, FuzzyBaseModel, tableOperation, Pagination, Api, Feature, FuzzyHandler, RenderDialog, DialogChanageable, HandlerParams, ItemProp }
 export * from './symbols'

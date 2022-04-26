@@ -2,7 +2,8 @@ import type { UnwrapNestedRefs, WritableComputedRef } from 'vue'
 import { watchEffect } from 'vue'
 import _ from 'lodash'
 import type { AllModels, Api } from '../types'
-import { getRequest } from '../../shared'
+import { getRequest, getResponse } from '../../shared'
+
 interface Request<g, p, d> {
   api: string | Api
   get: (params: object) => g
@@ -74,7 +75,7 @@ export class RequestFuzzy implements Request<any, any, any> {
           params: Object.assign({}, this.getRequestParams(), params),
         },
       )
-    const { data, success, total } = response
+    const { data, success, total } = getResponse(response)
     // 请求成功
     if (success) {
       pagingModel.model.total = total
