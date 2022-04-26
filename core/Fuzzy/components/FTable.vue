@@ -162,7 +162,7 @@ const handleOperator = (cmd: OperatorCmd, row: any) => {
     [OperatorCmd.update]: (row: any) => {
       const expose = { data: { ...row }, current: barModel }
       emits('dialogChangeable', { ...expose, text: `编辑${barModel.activeTitle.value}` })
-      fuzzyHandler.updateBeforePop && fuzzyHandler.updateBeforePop({ data: { ...row }, current: barModel })
+      fuzzyHandler && fuzzyHandler.updateBeforePop && fuzzyHandler.updateBeforePop({ data: { ...row }, current: barModel })
     },
   }
 

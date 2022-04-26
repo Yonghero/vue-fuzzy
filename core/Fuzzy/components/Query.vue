@@ -137,7 +137,7 @@ watch(
 const handleCreate = () => {
   const expose = { data: tableModel, current: barModel }
   emits('dialogChangeable', { ...expose, text: `新增${barModel.activeTitle.value}` })
-  fuzzyHandler.createBeforePop && fuzzyHandler.createBeforePop(expose)
+  fuzzyHandler && fuzzyHandler.createBeforePop && fuzzyHandler.createBeforePop(expose)
 }
 const handleEvent = () => {
   if (fuzzyHandler && fuzzyHandler.queryBefore) {
