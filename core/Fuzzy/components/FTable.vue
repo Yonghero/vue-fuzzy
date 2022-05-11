@@ -48,37 +48,38 @@
         align="center"
         label="操作"
         :width="operatorWidth"
+        class="flex justify-evenly"
       >
         <template
           #default="scope"
         >
-          <el-button
-            v-for="(operator, index) in tableModel?.tableOperation?.operator"
-            :key="index"
-            type="text"
-            size="small"
-            @click="operator.onClick(scope, barModel)"
-          >
-            {{ operator.label }}
-          </el-button>
+          <div class="flex justify-evenly w-full h-full items-center text-xl">
+            <div
+              v-for="(operator, index) in tableModel?.tableOperation?.operator"
+              :key="index"
+              style="color:#4278F6"
+              @click="operator.onClick(scope, barModel)"
+            >
+              {{ operator.label }}
+            </div>
 
-          <el-button
-            v-if="tableModel?.feature?.update"
-            type="text"
-            size="small"
-            @click="handleOperator(OperatorCmd.update, scope)"
-          >
-            编辑
-          </el-button>
-          <el-button
-            v-if="tableModel?.feature?.delete"
-            type="text"
-            size="small"
-            style="color: #F64F42"
-            @click="handleOperator(OperatorCmd.delete, scope)"
-          >
-            删除
-          </el-button>
+            <div
+              v-if="tableModel?.feature?.update"
+              style="color:#4278F6"
+              @click="handleOperator(OperatorCmd.update, scope)"
+            >
+              编辑
+            </div>
+            <div
+              v-if="tableModel?.feature?.delete"
+              type="text"
+              size="small"
+              style="color: #F64F42"
+              @click="handleOperator(OperatorCmd.delete, scope)"
+            >
+              删除
+            </div>
+          </div>
         </template>
       </el-table-column>
     </el-table>
