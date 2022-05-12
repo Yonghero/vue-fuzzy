@@ -59,6 +59,11 @@
           v-model="queryModel.model[value]"
           :options="items"
         />
+        <el-input
+          v-else-if="type === FormItemEnum.input"
+          v-model="queryModel.model[value]"
+          :placeholder="placeholder"
+        />
         <component
           :is="component"
           v-else

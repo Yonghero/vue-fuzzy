@@ -31,6 +31,9 @@ class QueryModel implements FuzzyBaseModel<Templates> {
       .filter(item => item.visible?.query)
       .map((item) => {
         const _item: any = reactive({ ...item })
+        if (!_item.type)
+          _item.type = FormItemEnum.input
+
         _item.component = filterCompOfType(
           item.type && item.type !== FormItemEnum.select
             ? item.type
