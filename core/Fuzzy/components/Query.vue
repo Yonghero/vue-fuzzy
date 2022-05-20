@@ -48,6 +48,7 @@
         <el-date-picker
           v-else-if="type === FormItemEnum.datePickerRange"
           v-model="queryModel.model[value]"
+          :size="size || 'default'"
           type="daterange"
           range-separator="至"
           start-placeholder="开始时间"
@@ -83,7 +84,7 @@
         style="margin-bottom: 18px;"
         @click="handleEvent"
       >
-        搜索111
+        搜索
       </el-button>
     </el-form>
     <div
