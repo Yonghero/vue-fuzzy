@@ -67,7 +67,7 @@ const {
 
 defineExpose({
   request: requestFuzzyRef,
-  dialogVisibleRef: dialogVisible,
+  fuzzyDialogVisible: dialogVisible,
 })
 
 </script>
