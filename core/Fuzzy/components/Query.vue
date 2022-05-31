@@ -157,8 +157,8 @@ const handleEvent = () => {
 }
 
 const selectChange = (val: string) => {
-  // if (fuzzyHandler && fuzzyHandler.querySelectChange)
-  //   fuzzyHandler.querySelectChange({ trigger: val, model: queryModel.value })
+  if (fuzzyHandler && fuzzyHandler.querySelectChange)
+    fuzzyHandler.querySelectChange({ value: val, model: queryModel.value })
 }
 
 </script>

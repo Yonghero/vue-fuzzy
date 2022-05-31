@@ -207,6 +207,10 @@ interface FuzzyHandler {
    */
   queryBefore?: (params: HandlerParams) => any //
   /**
+   * 查询点击下拉框事件
+   */
+  querySelectChange?: ({ value, model }: any) => any
+  /**
    * 点击更新对话框出来前
    */
   createBeforePop?: (params: HandlerParams) => any //
