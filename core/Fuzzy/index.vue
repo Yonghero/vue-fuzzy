@@ -49,9 +49,6 @@ onMounted(() => {
 })
 // 初始化
 const { requestFuzzyRef } = initializeFuzzy(props.config as TemplateConfiguration, props.handler as FuzzyHandler)
-defineExpose({
-  request: requestFuzzyRef,
-})
 
 // dialog 配置
 const {
@@ -66,6 +63,11 @@ const {
   renderDialog: props.renderDialog,
   requestFuzzyRef,
   style: props.config?.dialogStyle,
+})
+
+defineExpose({
+  request: requestFuzzyRef,
+  dialogVisibleRef: dialogVisible,
 })
 
 </script>
