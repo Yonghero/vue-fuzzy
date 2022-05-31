@@ -82,8 +82,6 @@ export function useFuzzyDialog(props: {
   }
 
   const dialogChangeable = ({ text, data, current }: DialogChanageable) => {
-    console.log('dialog', text, data, current)
-
     const activeIndex = current.activeIndex.value
     dialogStyle.value = Array.isArray(props.style) ? props.style[activeIndex] : props.style
 

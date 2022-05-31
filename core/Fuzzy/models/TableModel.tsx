@@ -42,8 +42,6 @@ class TableModel implements TableInterface {
   }
 
   handleEvent() {
-    console.log(this.handler)
-    // debugger
     this.requestFuzzy.get()
   }
 }

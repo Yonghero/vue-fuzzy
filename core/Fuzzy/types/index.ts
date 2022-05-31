@@ -126,6 +126,11 @@ interface Templates {
     update?: boolean
   }
   /**
+   * 是否需要展示
+   * 不展示 仅会在请求中带上该条件
+   */
+  queryUnShow?: boolean
+  /**
    * 异步加载下拉框的options
    */
   fetchQuery?: (temp: Templates) => any

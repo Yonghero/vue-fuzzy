@@ -28,7 +28,7 @@ class QueryModel implements FuzzyBaseModel<Templates> {
    */
   mapDataAccordConfig() {
     this.data.value = this.config
-      .filter(item => item.visible?.query)
+      .filter(item => item.visible?.query && !item.queryUnShow)
       .map((item) => {
         const _item: any = reactive({ ...item })
         if (!_item.type)
@@ -52,20 +52,19 @@ class QueryModel implements FuzzyBaseModel<Templates> {
   initModel() {
     this.data.value.forEach((tempItem: Templates) => {
       const key = tempItem.value
-      if (tempItem?.defaultQueryValue) {
-        console.log(tempItem, 'tempItem')
+      if (tempItem?.defaultQueryValue)
         this.model.value[key] = tempItem.defaultQueryValue
-        console.log(this.model.value, 'this.model.value')
-      }
-      else {
+
+      else
         this.model.value[key] = ''
-      }
     })
   }
 
   handleEvent(data: any) {
     // 触发表格数据更新
     this.requestFuzzy.get({ index: 1, ...data })
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-expect-error
     this.pagingModel.model.currentSize = 1
   }
 }
