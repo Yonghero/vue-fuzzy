@@ -53,7 +53,7 @@
         <template
           #default="scope"
         >
-          <div class="flex justify-evenly w-full h-full items-center text-xl">
+          <div class="flex justify-evenly w-full h-full items-center" style="font-size: 14px">
             <div
               v-for="(operator, index) in tableModel?.tableOperation?.operator"
               :key="index"
@@ -134,12 +134,20 @@ const handleOperator = (cmd: OperatorCmd, row: any) => {
         '此操作将永久删除数据,是否继续',
         '提示',
         {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
+          confirmButtonText: '取消',
+          cancelButtonText: '确定',
           type: 'warning',
+          showClose: false,
+          closeOnClickModal: false,
         },
       )
         .then(() => {
+          ElMessage({
+            type: 'info',
+            message: '已经取消删除',
+          })
+        })
+        .catch(() => {
           requestFuzzy.value.delete(row.row.id).then(() => {
             ElMessage({
               type: 'success',
@@ -151,12 +159,6 @@ const handleOperator = (cmd: OperatorCmd, row: any) => {
               type: 'warning',
               message: '删除数据失败',
             })
-          })
-        })
-        .catch(() => {
-          ElMessage({
-            type: 'info',
-            message: '已经取消删除',
           })
         })
     },
