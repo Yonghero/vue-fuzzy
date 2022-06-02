@@ -1,6 +1,7 @@
 import type { App, Component } from 'vue'
 import type { AxiosInstance } from 'axios'
 import Fuzzy from './Fuzzy/index.vue'
+import './Fuzzy/models/index.css'
 import { setRequest, setResponse } from './shared'
 import type { ResponseHandler } from './Fuzzy/types'
 
@@ -10,15 +11,6 @@ export interface FuzzyOptions {
   implResponse: (response: any) => ResponseHandler
 }
 
-export const FormItemEnum = {
-  select: 1,
-  input: 2,
-  switch: 3,
-  radio: 4,
-  datePicker: 5,
-  datePickerRange: 6,
-  cascader: 7,
-}
 /**
  * vue3 全局组件注册
  * @param App
