@@ -1,7 +1,6 @@
 import type { Ref } from 'vue'
 import type { FuzzyBaseModel, TemplateConfiguration } from '../types'
 import IconImg from '../../assets/public-icon.png'
-import './index.css'
 
 interface tabItem {
   label?: string
