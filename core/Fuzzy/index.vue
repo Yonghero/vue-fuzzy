@@ -34,7 +34,6 @@ import type { FuzzyHandler, RenderDialog, TemplateConfiguration } from './types'
 import { Bar, FTable, Pagination, Query } from './components'
 import { initializeFuzzy, useFuzzyDialog } from './utils'
 import Dialog from './components/Dialog/index.vue'
-import './models/index.css'
 const props = defineProps({
   config: Object,
   renderRightQuery: [Function, Array],
@@ -74,4 +73,5 @@ defineExpose({
 </script>
 
 <style>
+@import './models/index.css';
 </style>
