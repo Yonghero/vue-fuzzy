@@ -116,6 +116,10 @@ interface Templates {
    */
   width?: number | string
   /**
+   * 在条件中的表单多宽
+   */
+  queryWidth?: number | string
+  /**
    * 是否在增删改查中包含此字段
    *
    */

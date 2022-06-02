@@ -14,7 +14,7 @@
       <el-form-item
         v-for="{ value,
                  label,
-                 width,
+                 queryWidth,
                  placeholder,
                  component,
                  items,
@@ -28,7 +28,7 @@
         } of queryModel.data"
         :key="value"
         :label="label"
-        :style="{width: width ? width : 'auto'}"
+        :style="{width: queryWidth ? queryWidth : 'auto'}"
       >
         <el-select
           v-if="type === FormItemEnum.select"
