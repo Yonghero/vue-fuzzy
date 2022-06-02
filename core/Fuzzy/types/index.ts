@@ -190,6 +190,16 @@ enum FormItemEnum {
   datePickerRange = 6,
   cascader = 7,
 }
+
+// export const FormItemEnum =  {
+//   select:1,
+//   input : 2,
+//   switch : 3,
+//   radio : 4,
+//   datePicker : 5,
+//   datePickerRange : 6,
+//   cascader : 7,
+// }
 enum OperatorCmd {
   detail = 1,
   delete = 2,

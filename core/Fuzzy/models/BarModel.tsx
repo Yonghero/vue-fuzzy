@@ -1,6 +1,8 @@
 import type { Ref } from 'vue'
 import type { FuzzyBaseModel, TemplateConfiguration } from '../types'
 import IconImg from '../../assets/public-icon.png'
+import './index.css'
+
 interface tabItem {
   label?: string
   value?: string
@@ -62,7 +64,7 @@ class BarModel implements FuzzyBaseModel<tabItem> {
       // 普通文本
       else {
         renderTitle = <>
-          <div class="w-1 h-4.5 mb-2 rounded-sm bg-primary-100 mr-2"></div>
+          <div class="w-1 h-4 mb-2 rounded-sm bg-primary-100 mr-2"></div>
           <h2 class="mb-2 text-base">{this.config.title}</h2>
         </>
       }
@@ -75,16 +77,15 @@ class BarModel implements FuzzyBaseModel<tabItem> {
           onClick={tab.onClick}
           class={[
             this.activeIndex.value === tabIndex ? 'bg-primary-100 text-white' : 'bg-gray-200 text-gray-700',
-            'py-2.5', 'px-8',
+            'py-2', 'px-8',
             'rounded-t-lg', 'flex', 'items-center', 'mr-3', ' shadow-primary-50', 'cursor-pointer',
           ].join(' ')}
         >{tab.label}</div>
       })
     }
     // 按钮切换
-
     return <div>
-      <div class=" overflow-hidden relative">
+      <div class="overflow-hidden relative">
         <div class="w-full h-full flex items-center flex-wrap box-border">
           { renderTitle }
         </div>
