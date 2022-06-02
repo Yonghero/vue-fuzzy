@@ -20,6 +20,10 @@
     ".": {
       "import": "./lib/vue-fuzzy.es.js",
       "require": "./lib/vue-fuzzy.es.js"
+    },
+    "./style" : {
+      "import": "./lib/style.css",
+      "require": "./lib/style/.css"
     }
   },
   "main": "./lib/vue-fuzzy.umd.js",

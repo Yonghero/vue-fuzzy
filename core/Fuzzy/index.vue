@@ -73,5 +73,4 @@ defineExpose({
 </script>
 
 <style>
-@import './models/index.css';
 </style>
