@@ -1,6 +1,8 @@
 import type { Ref, VNode } from 'vue'
 import type { DialogStyle } from '../components/Dialog/types'
 
+export type QueryMode = 'simple' | 'advanced'
+
 interface TemplateConfiguration {
   /**
    * 页面标题 可传递自定义图片
@@ -9,6 +11,12 @@ interface TemplateConfiguration {
     text: string
     icon: string
   }
+  /**
+   * 查询模式
+   * simple: 简单查询
+   * advance: 高级查询 (数据库关键字查询)
+   */
+  queryMode?: QueryMode | Array<QueryMode>
   /**
    * 多页面启用
    */
@@ -54,6 +62,11 @@ interface Feature {
   update?: boolean
   delete?: boolean
 }
+/**
+ * 高级查询时 可用的查询符
+ */
+export const QueryOperators = ['eq', 'like', 'lt', 'gt', 'le', 'ge', 'btw'] as const
+type QueryOperator = typeof QueryOperators[number]
 
 /**
  * 每个字段对应的相关信息
@@ -71,6 +84,10 @@ interface Templates {
    * 该字段展示的表单类型 输入框？ 下拉框？ 时间选择器？
    */
   type?: FormItemEnum
+  /**
+   * 高级查询时 可用的查询符
+   */
+  queryOperator?: QueryOperator
   /**
    * 时间选择器类型 对照element-plus的时间选择器类型
    */
