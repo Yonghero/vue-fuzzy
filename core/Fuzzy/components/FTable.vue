@@ -53,7 +53,10 @@
         <template
           #default="scope"
         >
-          <div class="flex justify-evenly w-full h-full items-center" style="font-size: 14px">
+          <div
+            style="font-size: 14px;display: flex;width: 100%;
+            height: 100%;justify-content: space-evenly; align-items: center;"
+          >
             <div
               v-for="(operator, index) in tableModel?.tableOperation?.operator"
               :key="index"
@@ -87,8 +90,7 @@
 </template>
 
 <script setup lang='ts'>
-import { ElMessage, ElMessageBox } from 'element-plus'
-import type { FuzzyHandler } from '../types'
+import { ElEmpty, ElMessage, ElMessageBox, ElTable, ElTableColumn } from 'element-plus'
 import { BarModelProvide, FuzzyHandlerProvide, OperatorCmd, PagingModelProvide, RequestModelProvide, TableModelProvide } from '../types'
 
 const tableModel = inject(TableModelProvide)
