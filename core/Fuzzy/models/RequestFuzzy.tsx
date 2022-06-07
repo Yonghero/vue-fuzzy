@@ -81,18 +81,19 @@ export class RequestFuzzy implements Request<any, any, any> {
     console.log('this.queryMode: ', this.queryMode)
     if (this.queryMode === 'advanced') {
       requestConfig.paramsSerializer = (params: any) => {
+        console.log('params: ', params)
         let str = ''
-        for (const temp of queryModel.data) {
-          const { queryOperator } = temp as Templates
-          for (const key of Object.keys(params)) {
-            // 分页参数安装简单查询处理
-            if (key === 'size' || key === 'current')
-              str += `${key}=${params[key]}&`
-
-            else
+        for (const key of Object.keys(params)) {
+          // 分页参数安装简单查询处理
+          if (key === 'size' || key === 'current')
+            str += `${key}=${params[key]}&`
+          for (const temp of queryModel.data) {
+            const { queryOperator, value } = temp as Templates
+            if (key === value)
               str += `${encodeURIComponent(`q[${key}][${queryOperator || 'like'}]`)}=${params[key]}&`
           }
         }
+
         return str.substring(0, str.length - 1)
       }
     }
