@@ -67,22 +67,29 @@ export {
 function catchTmpl(config: TemplateConfiguration) {
   const catchConfig = config as any
   return (index: number) => {
-    return (fields: string[] | string): keyof TemplateConfiguration => {
-      return Array.isArray(fields)
-        ? fields.map((field) => {
-          if ((catchConfig[field] && Array.isArray(catchConfig[field][index])) && field !== 'templates')
-            return catchConfig[field] ? catchConfig[field][index] : undefined
-
-          else if (catchConfig[field] && !Array.isArray(catchConfig[field]))
-            return catchConfig[field]
-
+    return (fields: string[] | string): any => {
+      if (Array.isArray(fields)) {
+        return fields.map((field) => {
+          if (field === 'templates') {
+            if (Array.isArray(catchConfig.templates) && catchConfig.templates.length > 0 && Array.isArray(catchConfig.templates[0]))
+              return catchConfig.templates[index]
+            else
+              return catchConfig.templates
+          }
+          if (Array.isArray(catchConfig[field]))
+            return catchConfig[field][index]
           else
             return catchConfig[field]
-        },
-        )
-        : Array.isArray(catchConfig[fields])
-          ? ((fields !== 'templates' || Array.isArray(catchConfig[fields][index])) ? catchConfig[fields][index] : catchConfig[fields])
-          : catchConfig[fields]
+        })
+      }
+      else {
+        if (fields === 'templates' && Array.isArray(catchConfig.templates) && catchConfig.templates.length > 0 && Array.isArray(catchConfig.templates[0]))
+          return catchConfig.templates[index]
+        else if (Array.isArray(catchConfig[fields]))
+          return catchConfig[fields][index]
+        else
+          return catchConfig[fields]
+      }
     }
   }
 }

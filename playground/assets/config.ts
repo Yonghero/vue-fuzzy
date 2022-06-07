@@ -5,7 +5,6 @@ import type { TemplateConfiguration } from '../../core/Fuzzy/types'
 export const config = {
   api: ['/safety/ent/base', '/safety/ent/base'],
   title: '这是标题aaa',
-  queryMode: ['advanced', 'simple'],
   tabList: [{ label: '牛哈', value: '1' }, { label: '哈哈哈', value: '1' }],
   feature: [{ create: true, delete: true, update: true }, { create: true, delete: false }],
   pagination: {
@@ -266,7 +265,7 @@ export const singleConfig = {
       },
     },
   ],
-  tableOperation: [{
+  tableOperation: {
     show: true,
     operator: [
       {
@@ -278,5 +277,5 @@ export const singleConfig = {
         },
       },
     ],
-  }],
+  },
 } as TemplateConfiguration

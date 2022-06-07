@@ -45,7 +45,6 @@ class QueryModel implements FuzzyBaseModel<Templates> {
           item.fetchQuery(item)
         return _item
       })
-    console.log('this.data.value: ', this.data.value)
   }
 
   /**

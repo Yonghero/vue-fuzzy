@@ -76,12 +76,9 @@ export class RequestFuzzy implements Request<any, any, any> {
     const requestConfig = {
       params: Object.assign({}, this.getRequestParams(), params),
     } as any
-
     // 高级查询特殊操作
-    console.log('this.queryMode: ', this.queryMode)
     if (this.queryMode === 'advanced') {
       requestConfig.paramsSerializer = (params: any) => {
-        console.log('params: ', params)
         let str = ''
         for (const key of Object.keys(params)) {
           // 分页参数安装简单查询处理

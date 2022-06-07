@@ -67,7 +67,6 @@ export function useFuzzyDialog(props: {
             props.requestFuzzyRef.value.get()
           })
           .catch((error) => {
-            console.log(error)
             ElMessage({
               type: 'error',
               message: `${dialogTitle.value}失败`,
