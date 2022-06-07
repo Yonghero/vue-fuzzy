@@ -37,7 +37,8 @@
   },
   "dependencies": {
     "element-plus": "^2.1.9",
-    "vue": "^3.2.25"
+    "vue": "^3.2.25",
+    "vue-demi": "^0.12.5"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^0.16.1",

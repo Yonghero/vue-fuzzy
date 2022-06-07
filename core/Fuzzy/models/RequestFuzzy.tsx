@@ -70,7 +70,6 @@ export class RequestFuzzy implements Request<any, any, any> {
    */
   private async getReqDo(params: object): Promise<any> {
     // eslint-disable-next-line @typescript-eslint/no-this-alias
-    const self = this
     const { tableModel, pagingModel, queryModel } = this.allModels
     tableModel.tableLoading = true
 
@@ -79,7 +78,8 @@ export class RequestFuzzy implements Request<any, any, any> {
     } as any
 
     // 高级查询特殊操作
-    if (self.queryMode === 'advanced') {
+    console.log('this.queryMode: ', this.queryMode)
+    if (this.queryMode === 'advanced') {
       requestConfig.paramsSerializer = (params: any) => {
         let str = ''
         for (const temp of queryModel.data) {

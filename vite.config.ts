@@ -38,7 +38,10 @@ export default defineConfig({
   optimizeDeps: {
     include: [
       'vue',
-    ]
+    ],
+    exclude: [
+      'vue-demi',
+    ],
   },
   build: {
     lib: {
