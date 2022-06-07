@@ -13,6 +13,7 @@
 </template>
 
 <script setup lang='ts'>
+import { ElPagination } from 'element-plus'
 import type { FuzzyHandler } from '../types'
 import { FuzzyHandlerProvide, PagingModelProvide, QueryModelProvide } from '../types'
 

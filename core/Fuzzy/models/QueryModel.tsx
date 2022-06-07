@@ -1,5 +1,5 @@
 import type { Ref } from 'vue'
-import type { Feature, FuzzyBaseModel, Templates } from '../types'
+import type { Feature, FuzzyBaseModel, QueryMode, Templates } from '../types'
 import { FormItemEnum } from '../types'
 import { filterCompOfType } from './filterCompOfType'
 import type { RequestFuzzy } from './RequestFuzzy'
@@ -11,10 +11,12 @@ class QueryModel implements FuzzyBaseModel<Templates> {
   config!: Templates[]
   pagingModel!: Ref<PagingModel>
   feature: Feature
+  queryMode!: QueryMode
   requestFuzzy: any
 
   constructor(getFieldOfTmpl: any, requestFuzzy: Ref<RequestFuzzy>, pagingModel: Ref<PagingModel>) {
-    const [templates, feature] = getFieldOfTmpl(['templates', 'feature'])
+    const [templates, feature, queryMode] = getFieldOfTmpl(['templates', 'feature', 'queryMode'])
+    this.queryMode = queryMode
     this.config = templates
     this.feature = feature
     this.requestFuzzy = requestFuzzy
@@ -41,9 +43,9 @@ class QueryModel implements FuzzyBaseModel<Templates> {
         )
         if (item.fetchQuery)
           item.fetchQuery(item)
-
         return _item
       })
+    console.log('this.data.value: ', this.data.value)
   }
 
   /**

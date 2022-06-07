@@ -1,7 +1,7 @@
 import type { UnwrapNestedRefs, WritableComputedRef } from 'vue'
 import { watchEffect } from 'vue'
 import _ from 'lodash'
-import type { AllModels, Api } from '../types'
+import type { AllModels, Api, QueryMode, Templates } from '../types'
 import { getRequest, getResponse } from '../../shared'
 
 interface Request<g, p, d> {
@@ -18,10 +18,13 @@ export class RequestFuzzy implements Request<any, any, any> {
   allModels: UnwrapNestedRefs<AllModels>
   // 缓存请求参数
   requestParams!: WritableComputedRef<Record<string, any>>
+  queryMode: QueryMode
   axiosInstance
+
   constructor(getFieldOfTmpl: any, allModels: UnwrapNestedRefs<AllModels>) {
     this.axiosInstance = getRequest()
     this.api = getFieldOfTmpl('api')
+    this.queryMode = getFieldOfTmpl('queryMode')
     this.allModels = allModels
     this.initRequestParams()
     // getData
@@ -66,14 +69,38 @@ export class RequestFuzzy implements Request<any, any, any> {
    * get request to do
    */
   private async getReqDo(params: object): Promise<any> {
-    const { tableModel, pagingModel } = this.allModels
+    // eslint-disable-next-line @typescript-eslint/no-this-alias
+    const self = this
+    const { tableModel, pagingModel, queryModel } = this.allModels
     tableModel.tableLoading = true
+
+    const requestConfig = {
+      params: Object.assign({}, this.getRequestParams(), params),
+    } as any
+
+    // 高级查询特殊操作
+    if (self.queryMode === 'advanced') {
+      requestConfig.paramsSerializer = (params: any) => {
+        let str = ''
+        for (const temp of queryModel.data) {
+          const { queryOperator } = temp as Templates
+          for (const key of Object.keys(params)) {
+            // 分页参数安装简单查询处理
+            if (key === 'size' || key === 'current')
+              str += `${key}=${params[key]}&`
+
+            else
+              str += `${encodeURIComponent(`q[${key}][${queryOperator || 'like'}]`)}=${params[key]}&`
+          }
+        }
+        return str.substring(0, str.length - 1)
+      }
+    }
+
     const response: any = await this.axiosInstance
       .get(
         this.getApiOfReqMode('query'),
-        {
-          params: Object.assign({}, this.getRequestParams(), params),
-        },
+        requestConfig,
       )
     const { data, success, total } = getResponse(response)
     // 请求成功

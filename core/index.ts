@@ -9,6 +9,7 @@ export interface FuzzyOptions {
   request: AxiosInstance
   componentName?: string
   implResponse: (response: any) => ResponseHandler
+  implPageParams?: () => Record<string, any>
 }
 
 /**

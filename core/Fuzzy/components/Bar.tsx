@@ -4,7 +4,6 @@ import { BarModelProvide } from '../types'
 export default defineComponent({
   setup() {
     const barModel = inject(BarModelProvide)
-    console.log(barModel)
     return {
       barModel,
     }

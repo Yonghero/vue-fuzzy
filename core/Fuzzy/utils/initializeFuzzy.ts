@@ -70,8 +70,12 @@ function catchTmpl(config: TemplateConfiguration) {
     return (fields: string[] | string): keyof TemplateConfiguration => {
       return Array.isArray(fields)
         ? fields.map((field) => {
-          if ((catchConfig[field] && Array.isArray(catchConfig[field][index])) || field !== 'templates')
+          if ((catchConfig[field] && Array.isArray(catchConfig[field][index])) && field !== 'templates')
             return catchConfig[field] ? catchConfig[field][index] : undefined
+
+          else if (catchConfig[field] && !Array.isArray(catchConfig[field]))
+            return catchConfig[field]
+
           else
             return catchConfig[field]
         },
