@@ -1,6 +1,6 @@
 {
   "name": "vue-fuzzy",
-  "version": "1.0.40",
+  "version": "1.0.41",
   "description": "On the background management system Fuzzy Provides one - stop add, delete, change and check configurable component",
   "keywords": [
     "npm",
@@ -53,8 +53,8 @@
     "unplugin-vue-components": "^0.17.21",
     "vite": "^2.9.0",
     "vite-plugin-windicss": "^1.8.4",
-      "vue": "^3.2.25",
-      "vue-demi": "^0.12.5",
+    "vue": "^3.2.25",
+    "vue-demi": "^0.12.5",
     "vue-tsc": "^0.29.8",
     "windicss": "^3.5.1"
   }
