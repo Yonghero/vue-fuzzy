@@ -52,6 +52,7 @@ function initializeFuzzy(config: TemplateConfiguration, handler: FuzzyHandler) {
 
   return {
     requestFuzzyRef,
+    queryModel,
   }
 }
 
@@ -64,7 +65,7 @@ export {
  * @param config
  * @returns
  */
- function catchTmpl(config: TemplateConfiguration) {
+function catchTmpl(config: TemplateConfiguration) {
   const catchConfig = config as any
   return (index: number) => {
     return (fields: string[] | string): any => {
