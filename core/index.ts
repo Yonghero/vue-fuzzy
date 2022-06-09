@@ -4,6 +4,7 @@ import Fuzzy from './Fuzzy/index.vue'
 import './Fuzzy/models/index.css'
 import { setRequest, setResponse } from './shared'
 import type { ResponseHandler } from './Fuzzy/types'
+import 'virtual:windi.css'
 
 export interface FuzzyOptions {
   request: AxiosInstance
