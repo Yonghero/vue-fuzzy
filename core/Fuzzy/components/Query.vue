@@ -25,7 +25,7 @@
                  rangeSeparator,
                  startPlaceholder,
                  endPlaceholder
-        } of queryModel.data"
+        } of queryModel.data.filter(q => !q.queryUnShow)"
         :key="value"
         :label="label"
         :style="{width: queryWidth ? queryWidth : 'auto'}"

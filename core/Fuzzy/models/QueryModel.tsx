@@ -28,7 +28,7 @@ class QueryModel implements FuzzyBaseModel<Templates> {
    */
   mapDataAccordConfig() {
     this.data.value = this.config
-      .filter(item => item.visible?.query && !item.queryUnShow)
+      .filter(item => item.visible?.query)
       .map((item) => {
         const _item: any = reactive({ ...item })
         if (!_item.type)

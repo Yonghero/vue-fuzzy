@@ -10,6 +10,7 @@ export const config = {
   pagination: {
     size: 10,
   },
+  queryMode: ['advanced', 'advanced'],
   templates: [[
     {
       label: '序号',
@@ -27,6 +28,15 @@ export const config = {
       visible: {
         query: true,
       },
+    },
+    {
+      label: 'xxx',
+      width: '300px',
+      value: 'testfield',
+      visible: {
+        query: true,
+      },
+      queryUnShow: true,
     },
     {
       label: '企业名称',
