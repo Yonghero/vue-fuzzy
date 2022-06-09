@@ -4,6 +4,7 @@
       v-loading="tableModel.tableLoading"
       :data="tableModel.model"
       border
+      size="large"
       style="width: 100%"
       @selection-change="handleSelectionChange"
     >

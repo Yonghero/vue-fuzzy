@@ -63,7 +63,7 @@ class BarModel implements FuzzyBaseModel<tabItem> {
       // 普通文本
       else {
         renderTitle = <>
-          <div class="h-4 mb-2 rounded-sm bg-primary-100 mr-2" style="width:5px"></div>
+          <div class="w-1 h-4.5 mb-2 rounded-sm bg-primary-100 mr-2"></div>
           <h2 class="mb-2 text-base">{this.config.title}</h2>
         </>
       }
