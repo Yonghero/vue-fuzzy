@@ -57,7 +57,7 @@
           <div
             class="flex justify-evenly w-full h-full items-center" :style="{
               fontSize: '14px',
-              justifyContent: tableModel?.tableOperation?.operator.length >= 1 || (tableModel?.feature.update || tableModel?.feature.create) ? 'space-evenly' : 'center',
+              justifyContent: tableModel?.tableOperation?.operator?.length >= 1 || (tableModel?.feature?.update || tableModel?.feature?.create) ? 'space-evenly' : 'center',
             }"
           >
             <div
