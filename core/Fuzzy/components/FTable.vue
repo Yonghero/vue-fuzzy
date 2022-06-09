@@ -53,7 +53,12 @@
         <template
           #default="scope"
         >
-          <div class="flex justify-evenly w-full h-full items-center" style="font-size: 14px">
+          <div
+            class="flex justify-evenly w-full h-full items-center" :style="{
+              fontSize: '14px',
+              justifyContent: tableModel?.tableOperation?.operator.length >= 1 || (tableModel?.feature.update || tableModel?.feature.create) ? 'space-evenly' : 'center',
+            }"
+          >
             <div
               v-for="(operator, index) in tableModel?.tableOperation?.operator"
               :key="index"
@@ -98,6 +103,10 @@ const barModel = inject(BarModelProvide)
 const fuzzyHandler = inject(FuzzyHandlerProvide)
 
 const emits = defineEmits(['dialogChangeable'])
+
+watchEffect(() => {
+  console.log(tableModel?.tableOperation?.operator.length >= 1 && (tableModel.feature.update || tableModel?.feature.create))
+})
 
 const handleSelectionChange = (val: any) => {
   tableModel.value.multipleSelection.value = val

@@ -178,3 +178,120 @@ export const config = {
     ],
   }],
 } as TemplateConfiguration
+
+export const singleConfig = {
+  api: '/safety/ent/base',
+  title: '这是标题aaa',
+  feature: { create: true, delete: true, update: true },
+  pagination: {
+    size: 10,
+  },
+  templates: [
+    {
+      label: '序号',
+      value: 'serialNumber',
+      visible: {
+        table: true,
+      },
+    },
+    {
+      label: '企业简称',
+      value: 'entName',
+      type: FormItemEnum.select,
+      items: [
+        { label: '全部', value: '' }],
+      visible: {
+        query: true,
+      },
+    },
+    {
+      label: 'xxx',
+      width: '300px',
+      value: 'testfield',
+      visible: {
+        query: true,
+      },
+      queryUnShow: true,
+    },
+    {
+      label: '企业名称',
+      width: '300px',
+      value: 'enterpriseName',
+      visible: {
+        table: true,
+      },
+    },
+    {
+      label: '企业简称',
+      value: 'abbreviation',
+      visible: {
+        table: true,
+      },
+    },
+    {
+      label: '社会统一代码',
+      value: 'enterpriseCode',
+      width: 230,
+      visible: {
+        table: true,
+      },
+    },
+    {
+      label: '企业类型',
+      value: 'enterpriseType',
+      visible: {
+        table: true,
+      },
+    },
+    {
+      label: '行业类型',
+      value: 'enterpriseCategory',
+      visible: {
+        table: true,
+      },
+    },
+    {
+      label: '规模',
+      value: 'enterpriseScale',
+      visible: {
+        table: true,
+      },
+    },
+    {
+      label: '生产状态',
+      value: 'produceStatus',
+      type: FormItemEnum.select,
+      items: [{ label: '全部', value: '' }],
+      visible: {
+        query: true,
+        table: true,
+      },
+      render({ row }: any) {
+        return h('div', {}, row.produceStatus)
+      },
+    },
+    {
+      label: '面积',
+      value: 'totalArea',
+      visible: {
+        table: true,
+      },
+      render({ row }: any) {
+        return h('div', {}, [row.totalArea ? `${row.totalArea}㎡` : '-'])
+      },
+    },
+  ],
+  tableOperation: {
+    show: true,
+    operator: [
+      {
+        label: '自定义',
+        value: 'diy',
+        onClick: (row: any) => {
+          // param.setVisible(true)
+          console.log('自定义按钮', row)
+        },
+      },
+    ],
+  },
+} as TemplateConfiguration
