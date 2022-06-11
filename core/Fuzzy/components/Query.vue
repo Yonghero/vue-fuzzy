@@ -172,7 +172,7 @@ const selectChange = (val: string) => {
     .el-form-item{
       margin-right: 30px;
       .el-form-item__content{
-        min-width: 240px;
+        min-width: 120px;
         .el-date-editor--date,.el-date-editor--datetime,.el-select{
           min-width: 240px;
         }
