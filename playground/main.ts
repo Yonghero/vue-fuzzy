@@ -9,7 +9,7 @@ import type { ResponseHandler } from '../core/Fuzzy/types'
 import App from './App.vue'
 
 const axiosInstance = axios.create({
-  baseURL: 'http://localhost:3301/api', // api的base_url
+  baseURL: 'http://localhost:3300/api', // api的base_url
   timeout: 300000, // 请求超时时间
 })
 axiosInstance.interceptors.request.use((config: any) => {
