@@ -26,7 +26,7 @@ class BarModel implements FuzzyBaseModel<tabItem> {
    * @returns
    */
   mapDataAccordConfig() {
-    if (this.config.tabList) {
+    if (this.config?.tabList) {
       this.data.value = this.config.tabList.map((tab, tabIndex) => {
         const _tab = { ...tab, onClick: () => {} }
         _tab.onClick = () => {
