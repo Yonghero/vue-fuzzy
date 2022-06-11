@@ -1,7 +1,7 @@
 <template>
   <div
     class="flex flex-wrap px-6 pt-6 pb-2 items-start justify-between restful_query"
-    style="align-items: end;"
+    style="align-items: end;flex-direction: column;justify-content: flex-start;align-items: flex-end;"
   >
     <el-form
       v-if="queryModel.data.length > 0"
@@ -9,7 +9,7 @@
       :inline="true"
       :model="queryModel.model"
       class="demo-form-inline"
-      style="flex: 10"
+      style="flex: 10;align-self: flex-start"
     >
       <el-form-item
         v-for="{ value,
@@ -170,9 +170,9 @@ const selectChange = (val: string) => {
   .el-form{
     flex: 4;
     .el-form-item{
-      margin-right: 30px;
+      margin-right: 18px;
       .el-form-item__content{
-        min-width: 120px;
+        min-width: 120px!important;
         .el-date-editor--date,.el-date-editor--datetime,.el-select{
           min-width: 240px;
         }
