@@ -4,8 +4,10 @@ import type { FuzzyHandler } from '../core/Fuzzy/types'
 import { singleConfig } from './assets/config'
 
 const handler: FuzzyHandler = {
-  queryBefore: async() => {
+  queryBefore: async({ data }) => {
     console.log(11)
+    data.entName = '22'
+    return data
   },
 }
 </script>

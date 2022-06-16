@@ -1,7 +1,7 @@
 import type { UnwrapNestedRefs, WritableComputedRef } from 'vue'
 import { watchEffect } from 'vue'
 import _ from 'lodash'
-import type { AllModels, Api, QueryMode, Templates } from '../types'
+import type { AllModels, Api, FuzzyHandler, QueryMode, Templates } from '../types'
 import { getRequest, getResponse } from '../../shared'
 
 interface Request<g, p, d> {
@@ -21,14 +21,22 @@ export class RequestFuzzy implements Request<any, any, any> {
   queryMode: QueryMode
   axiosInstance
 
-  constructor(getFieldOfTmpl: any, allModels: UnwrapNestedRefs<AllModels>) {
+  constructor(getFieldOfTmpl: any, allModels: UnwrapNestedRefs<AllModels>, handler: FuzzyHandler) {
     this.axiosInstance = getRequest()
     this.api = getFieldOfTmpl('api')
     this.queryMode = getFieldOfTmpl('queryMode')
     this.allModels = allModels
     this.initRequestParams()
     // getData
-    this.get({}).then()
+
+    if (handler?.queryBefore) {
+      handler.queryBefore({ data: this.allModels.queryModel.model, current: this.allModels.queryModel }).then((data) => {
+        this.get({ ...data })
+      })
+    }
+    else {
+      this.get({})
+    }
   }
 
   /**
