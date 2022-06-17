@@ -146,14 +146,15 @@ const handleCreate = () => {
   fuzzyHandler && fuzzyHandler.createBeforePop && fuzzyHandler.createBeforePop(expose)
 }
 const handleEvent = () => {
-  if (fuzzyHandler && fuzzyHandler.queryBefore) {
-    fuzzyHandler.queryBefore({ data: queryModel.value.model, current: queryModel.value }).then((data: any) => {
-      queryModel.value.handleEvent(data)
-    })
-  }
-  else {
-    queryModel.value.handleEvent({})
-  }
+  queryModel.value.handleEvent({})
+  // if (fuzzyHandler && fuzzyHandler.queryBefore) {
+  //   fuzzyHandler.queryBefore({ data: queryModel.value.model, current: queryModel.value }).then((data: any) => {
+  //     queryModel.value.handleEvent(data)
+  //   })
+  // }
+  // else {
+  //   queryModel.value.handleEvent({})
+  // }
 }
 
 const selectChange = (val: string) => {

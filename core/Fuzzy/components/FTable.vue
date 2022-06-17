@@ -63,7 +63,7 @@
             <div
               v-for="(operator, index) in tableModel?.tableOperation?.operator"
               :key="index"
-              style="color:#4278F6"
+              style="color:#4278F6;cursor: pointer;"
               @click="operator.onClick(scope, barModel)"
             >
               {{ operator.label }}
@@ -71,7 +71,7 @@
 
             <div
               v-if="tableModel?.feature?.update"
-              style="color:#4278F6"
+              style="color:#4278F6;cursor: pointer;"
               @click="handleOperator(OperatorCmd.update, scope)"
             >
               编辑
@@ -80,7 +80,7 @@
               v-if="tableModel?.feature?.delete"
               type="text"
               size="small"
-              style="color: #F64F42"
+              style="color: #F64F42;cursor: pointer;"
               @click="handleOperator(OperatorCmd.delete, scope)"
             >
               删除

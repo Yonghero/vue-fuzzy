@@ -14,6 +14,7 @@ interface Request<g, p, d> {
 export class RequestFuzzy implements Request<any, any, any> {
   api: string | Api
   postResponse: any
+  handler: FuzzyHandler
   deleteResponse: any
   allModels: UnwrapNestedRefs<AllModels>
   // 缓存请求参数
@@ -26,17 +27,19 @@ export class RequestFuzzy implements Request<any, any, any> {
     this.api = getFieldOfTmpl('api')
     this.queryMode = getFieldOfTmpl('queryMode')
     this.allModels = allModels
+    this.handler = handler
     this.initRequestParams()
     // getData
 
-    if (handler?.queryBefore) {
-      handler.queryBefore({ data: this.allModels.queryModel.model, current: this.allModels.queryModel }).then((data) => {
-        this.get({ ...data })
-      })
-    }
-    else {
-      this.get({})
-    }
+    // if (handler?.queryBefore) {
+    //   handler.queryBefore({ data: this.allModels.queryModel.model, current: this.allModels.queryModel }).then((data) => {
+    //     this.get({ ...data })
+    //   })
+    // }
+    // else {
+    //   this.get({})
+    // }
+    this.get({})
   }
 
   /**
@@ -121,7 +124,15 @@ export class RequestFuzzy implements Request<any, any, any> {
   async get(params: object = {}) {
     watchEffect(async() => {
       _.debounce(() => {
-        this.getReqDo(params)
+        if (this.handler?.queryBefore) {
+          this.handler.queryBefore({ data: { ...this.allModels.queryModel.model, ...params }, current: this.allModels.queryModel })
+            .then((data) => {
+              this.getReqDo({ ...data })
+            })
+        }
+        else {
+          this.getReqDo(params)
+        }
       }, 100)()
     })
   }
