@@ -35,7 +35,7 @@
     "preview": "vite preview",
     "pub": "npm run build && npm version patch && npm publish --access public --force"
   },
-  "dependencies": {
+  "peerdependencies": {
     "element-plus": "^2.1.9",
     "vue": "^3.2.25",
     "vue-demi": "^0.12.5"
