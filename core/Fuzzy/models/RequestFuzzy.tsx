@@ -8,7 +8,7 @@ interface Request<g, p, d> {
   api: string | Api
   get: (params: object) => g
   post: () => p
-  delete: (param: any) => d
+  delete: (id, params: object) => d
 }
 
 export class RequestFuzzy implements Request<any, any, any> {
@@ -150,10 +150,13 @@ export class RequestFuzzy implements Request<any, any, any> {
     }
   }
 
-  delete(id: number | string) {
+  delete(id: number | string, body: Record<string, any>) {
     return new Promise((resolve, reject) => {
       this.axiosInstance
-        .delete(`${this.getApiOfReqMode('delete')}?id=${[id]}`)
+        .delete({
+          url: `${this.getApiOfReqMode('delete')}?id=${[id]}`,
+          params: body,
+        })
         .then((response: any) => {
           const { success } = response
           if (success)

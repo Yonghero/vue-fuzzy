@@ -158,7 +158,9 @@ const handleOperator = (cmd: OperatorCmd, row: any) => {
           })
         })
         .catch(() => {
-          requestFuzzy.value.delete(row.row.id).then(() => {
+          const body = fuzzyHandler && fuzzyHandler.deleteBefore && fuzzyHandler.deleteBefore()
+
+          requestFuzzy.value.delete(row.row.id, body).then(() => {
             ElMessage({
               type: 'success',
               message: '已成功删除数据',
