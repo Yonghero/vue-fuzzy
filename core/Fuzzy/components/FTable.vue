@@ -139,6 +139,9 @@ const handleOperator = (cmd: OperatorCmd, row: any) => {
     },
     [OperatorCmd.delete]: (row: any) => {
       console.log('click tab delete', row)
+      const body = fuzzyHandler && fuzzyHandler.deleteBefore
+        ? fuzzyHandler.deleteBefore({ row })
+        : { }
 
       ElMessageBox.confirm(
         '此操作将永久删除数据,是否继续',
@@ -158,8 +161,6 @@ const handleOperator = (cmd: OperatorCmd, row: any) => {
           })
         })
         .catch(() => {
-          const body = fuzzyHandler && fuzzyHandler.deleteBefore && fuzzyHandler.deleteBefore()
-
           requestFuzzy.value.delete(row.row.id, body).then(() => {
             ElMessage({
               type: 'success',
