@@ -31,7 +31,7 @@ class BarModel implements FuzzyBaseModel<tabItem> {
         const _tab = { ...tab, onClick: () => {} }
         _tab.onClick = () => {
           this.activeIndex.value = tabIndex
-          this.activeTitle.value = tab.label
+          this.activeTitle.value = tab?.label ? tab.label : ''
         }
         return _tab
       })
@@ -40,11 +40,11 @@ class BarModel implements FuzzyBaseModel<tabItem> {
 
   mapTitle() {
     if (typeof this.config.title === 'object')
-      this.activeTitle.value = this.config.title.text
+      this.activeTitle.value = this.config.title.text ?? ''
     else
-      this.activeTitle.value = this.config.title
+      this.activeTitle.value = this.config.title ?? ''
     if (this.config.tabList)
-      this.activeTitle.value = this.config.tabList[0].label
+      this.activeTitle.value = this.config.tabList[0].label ?? ''
   }
 
   handleEvent() {
