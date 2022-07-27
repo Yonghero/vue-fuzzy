@@ -7,11 +7,13 @@ const fuzzy = ref()
 
 const handler: FuzzyHandler = {
   queryBefore: async({ data }) => {
-    console.log(11)
+    console.log('querybefore')
     // data.entName = '22'
     return data
   },
-  deleteBefore: () => {
+  deleteBefore: ({ url }) => {
+    console.log('deletebefore,url: ', url)
+    return {}
   },
 }
 

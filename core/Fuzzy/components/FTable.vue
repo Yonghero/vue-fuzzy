@@ -94,7 +94,6 @@
 
 <script setup lang='ts'>
 import { ElMessage, ElMessageBox } from 'element-plus'
-import type { FuzzyHandler } from '../types'
 import { BarModelProvide, FuzzyHandlerProvide, OperatorCmd, PagingModelProvide, RequestModelProvide, TableModelProvide } from '../types'
 
 const tableModel = inject(TableModelProvide)
@@ -104,10 +103,6 @@ const barModel = inject(BarModelProvide)
 const fuzzyHandler = inject(FuzzyHandlerProvide)
 
 const emits = defineEmits(['dialogChangeable'])
-
-watchEffect(() => {
-  console.log(tableModel?.tableOperation?.operator.length >= 1 && (tableModel.feature.update || tableModel?.feature.create))
-})
 
 const handleSelectionChange = (val: any) => {
   tableModel.value.multipleSelection.value = val
@@ -135,12 +130,10 @@ const operatorWidth = computed(() => {
 const handleOperator = (cmd: OperatorCmd, row: any) => {
   const handler = {
     [OperatorCmd.detail]: (row: any) => {
-      console.log('click tab detail')
     },
     [OperatorCmd.delete]: (row: any) => {
-      console.log('click tab delete', row)
       const body = fuzzyHandler && fuzzyHandler.deleteBefore
-        ? fuzzyHandler.deleteBefore({ row })
+        ? fuzzyHandler.deleteBefore({ data: { ...row }, url: requestFuzzy.value.getApiOfReqMode('delete') })
         : { }
 
       ElMessageBox.confirm(

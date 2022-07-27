@@ -180,7 +180,8 @@ export const config = {
 } as TemplateConfiguration
 
 export const singleConfig = {
-  api: '/safety/ent/base',
+  // api: '/safety/ent/base',
+  api: '/safety/troubleshoot-task-configuration',
   title: '这是标题aaa',
   feature: { create: true, delete: true, update: true },
   pagination: {
@@ -196,7 +197,7 @@ export const singleConfig = {
     },
     {
       label: '企业简称',
-      value: 'entName',
+      value: 'name',
       type: FormItemEnum.select,
       items: [
         { label: '全部', value: '' }],

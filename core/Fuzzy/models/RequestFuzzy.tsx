@@ -150,13 +150,22 @@ export class RequestFuzzy implements Request<any, any, any> {
     }
   }
 
-  delete(id: number | string, body: Record<string, any>) {
+  delete(id: number | string, _body: Record<string, any>) {
+    let url = `${this.getApiOfReqMode('delete')}?id=${[id]}`
+    let body = {}
+
+    if (_body?.url && _body?.params) {
+      url = _body.url
+      body = _body.params
+    }
+    else if (Object.keys(_body).length > 0) {
+      body = _body
+    }
+
     return new Promise((resolve, reject) => {
-      this.axiosInstance
-        .delete({
-          url: `${this.getApiOfReqMode('delete')}?id=${[id]}`,
-          params: body,
-        })
+      this.axiosInstance.delete(url, {
+        params: body,
+      })
         .then((response: any) => {
           const { success } = response
           if (success)
