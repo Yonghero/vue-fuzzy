@@ -84,7 +84,7 @@
         style="margin-bottom: 18px;"
         @click="handleEvent"
       >
-        搜索
+        查询
       </el-button>
     </el-form>
     <div
