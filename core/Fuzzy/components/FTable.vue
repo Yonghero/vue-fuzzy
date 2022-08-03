@@ -4,6 +4,7 @@
       v-loading="tableModel.tableLoading"
       :data="tableModel.model"
       border
+      size="large"
       style="width: 100%"
       @selection-change="handleSelectionChange"
     >
@@ -54,13 +55,15 @@
           #default="scope"
         >
           <div
-            style="font-size: 14px;display: flex;width: 100%;
-            height: 100%;justify-content: space-evenly; align-items: center;"
+            class="flex justify-evenly w-full h-full items-center" :style="{
+              fontSize: '14px',
+              justifyContent: tableModel?.tableOperation?.operator?.length >= 1 || (tableModel?.feature?.update || tableModel?.feature?.create) ? 'space-evenly' : 'center',
+            }"
           >
             <div
               v-for="(operator, index) in tableModel?.tableOperation?.operator"
               :key="index"
-              style="color:#4278F6"
+              style="color:#4278F6;cursor: pointer;"
               @click="operator.onClick(scope, barModel)"
             >
               {{ operator.label }}
@@ -68,7 +71,7 @@
 
             <div
               v-if="tableModel?.feature?.update"
-              style="color:#4278F6"
+              style="color:#4278F6;cursor: pointer;"
               @click="handleOperator(OperatorCmd.update, scope)"
             >
               编辑
@@ -77,7 +80,7 @@
               v-if="tableModel?.feature?.delete"
               type="text"
               size="small"
-              style="color: #F64F42"
+              style="color: #F64F42;cursor: pointer;"
               @click="handleOperator(OperatorCmd.delete, scope)"
             >
               删除
@@ -90,7 +93,11 @@
 </template>
 
 <script setup lang='ts'>
+<<<<<<< HEAD
 import { ElEmpty, ElMessage, ElMessageBox, ElTable, ElTableColumn } from 'element-plus'
+=======
+import { ElMessage, ElMessageBox } from 'element-plus'
+>>>>>>> 34-copy
 import { BarModelProvide, FuzzyHandlerProvide, OperatorCmd, PagingModelProvide, RequestModelProvide, TableModelProvide } from '../types'
 
 const tableModel = inject(TableModelProvide)
@@ -127,10 +134,11 @@ const operatorWidth = computed(() => {
 const handleOperator = (cmd: OperatorCmd, row: any) => {
   const handler = {
     [OperatorCmd.detail]: (row: any) => {
-      console.log('click tab detail')
     },
     [OperatorCmd.delete]: (row: any) => {
-      console.log('click tab delete', row)
+      const body = fuzzyHandler && fuzzyHandler.deleteBefore
+        ? fuzzyHandler.deleteBefore({ data: { ...row }, url: requestFuzzy.value.getApiOfReqMode('delete') })
+        : { }
 
       ElMessageBox.confirm(
         '此操作将永久删除数据,是否继续',
@@ -150,7 +158,7 @@ const handleOperator = (cmd: OperatorCmd, row: any) => {
           })
         })
         .catch(() => {
-          requestFuzzy.value.delete(row.row.id).then(() => {
+          requestFuzzy.value.delete(row.row.id, body).then(() => {
             ElMessage({
               type: 'success',
               message: '已成功删除数据',

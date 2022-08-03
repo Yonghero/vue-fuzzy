@@ -26,12 +26,12 @@ class BarModel implements FuzzyBaseModel<tabItem> {
    * @returns
    */
   mapDataAccordConfig() {
-    if (this.config.tabList) {
+    if (this.config?.tabList) {
       this.data.value = this.config.tabList.map((tab, tabIndex) => {
         const _tab = { ...tab, onClick: () => {} }
         _tab.onClick = () => {
           this.activeIndex.value = tabIndex
-          this.activeTitle.value = tab.label
+          this.activeTitle.value = tab?.label ? tab.label : ''
         }
         return _tab
       })
@@ -40,18 +40,18 @@ class BarModel implements FuzzyBaseModel<tabItem> {
 
   mapTitle() {
     if (typeof this.config.title === 'object')
-      this.activeTitle.value = this.config.title.text
+      this.activeTitle.value = this.config.title.text ?? ''
     else
-      this.activeTitle.value = this.config.title
+      this.activeTitle.value = this.config.title ?? ''
     if (this.config.tabList)
-      this.activeTitle.value = this.config.tabList[0].label
+      this.activeTitle.value = this.config.tabList[0].label ?? ''
   }
 
   handleEvent() {
   }
 
   render() {
-    let renderTitle = null
+    let renderTitle
     if (!this.config.tabList && this.config.title) {
       // 带有图片的title
       if (typeof this.config.title === 'object') {
@@ -63,7 +63,7 @@ class BarModel implements FuzzyBaseModel<tabItem> {
       // 普通文本
       else {
         renderTitle = <>
-          <div class="h-4 mb-2 rounded-sm bg-primary-100 mr-2" style="width: 5px"></div>
+          <div class="w-1 h-4.5 mb-2 rounded-sm bg-primary-100 mr-2"></div>
           <h2 class="mb-2 text-base">{this.config.title}</h2>
         </>
       }

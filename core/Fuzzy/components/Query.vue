@@ -25,7 +25,7 @@
                  rangeSeparator,
                  startPlaceholder,
                  endPlaceholder
-        } of queryModel.data"
+        } of queryModel.data.filter(q => !q.queryUnShow)"
         :key="value"
         :label="label"
         :style="{width: queryWidth ? queryWidth : 'auto'}"
@@ -84,7 +84,7 @@
         style="margin-bottom: 18px;"
         @click="handleEvent"
       >
-        搜索
+        查询
       </el-button>
     </el-form>
     <div
@@ -146,14 +146,15 @@ const handleCreate = () => {
   fuzzyHandler && fuzzyHandler.createBeforePop && fuzzyHandler.createBeforePop(expose)
 }
 const handleEvent = () => {
-  if (fuzzyHandler && fuzzyHandler.queryBefore) {
-    fuzzyHandler.queryBefore({ data: queryModel.value.model, current: queryModel.value }).then((data: any) => {
-      queryModel.value.handleEvent(data)
-    })
-  }
-  else {
-    queryModel.value.handleEvent({})
-  }
+  queryModel.value.handleEvent({})
+  // if (fuzzyHandler && fuzzyHandler.queryBefore) {
+  //   fuzzyHandler.queryBefore({ data: queryModel.value.model, current: queryModel.value }).then((data: any) => {
+  //     queryModel.value.handleEvent(data)
+  //   })
+  // }
+  // else {
+  //   queryModel.value.handleEvent({})
+  // }
 }
 
 const selectChange = (val: string) => {
@@ -170,9 +171,9 @@ const selectChange = (val: string) => {
   .el-form{
     flex: 4;
     .el-form-item{
-      margin-right: 30px;
+      margin-right: 17px;
       .el-form-item__content{
-        min-width: 240px;
+        min-width: 120px!important;
         .el-date-editor--date,.el-date-editor--datetime,.el-select{
           min-width: 240px;
         }

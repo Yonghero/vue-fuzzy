@@ -32,6 +32,7 @@ function initializeFuzzy(config: TemplateConfiguration, handler: FuzzyHandler) {
     requestFuzzyRef.value = new RequestFuzzy(
       getFieldOfTmpl.value,
       reactive({ pagingModel: pagingModel.value, queryModel: queryModel.value, tableModel: tableModel.value }),
+      handler,
     )
   }
 
@@ -52,6 +53,7 @@ function initializeFuzzy(config: TemplateConfiguration, handler: FuzzyHandler) {
 
   return {
     requestFuzzyRef,
+    queryModel,
   }
 }
 

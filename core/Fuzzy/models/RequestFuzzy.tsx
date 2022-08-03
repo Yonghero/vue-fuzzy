@@ -1,19 +1,20 @@
 import type { UnwrapNestedRefs, WritableComputedRef } from 'vue'
 import { watchEffect } from 'vue'
 import _ from 'lodash'
-import type { AllModels, Api, QueryMode, Templates } from '../types'
+import type { AllModels, Api, FuzzyHandler, QueryMode, Templates } from '../types'
 import { getRequest, getResponse } from '../../shared'
 
 interface Request<g, p, d> {
   api: string | Api
   get: (params: object) => g
   post: () => p
-  delete: (param: any) => d
+  delete: (id, params: object) => d
 }
 
 export class RequestFuzzy implements Request<any, any, any> {
   api: string | Api
   postResponse: any
+  handler: FuzzyHandler
   deleteResponse: any
   allModels: UnwrapNestedRefs<AllModels>
   // 缓存请求参数
@@ -21,14 +22,24 @@ export class RequestFuzzy implements Request<any, any, any> {
   queryMode: QueryMode
   axiosInstance
 
-  constructor(getFieldOfTmpl: any, allModels: UnwrapNestedRefs<AllModels>) {
+  constructor(getFieldOfTmpl: any, allModels: UnwrapNestedRefs<AllModels>, handler: FuzzyHandler) {
     this.axiosInstance = getRequest()
     this.api = getFieldOfTmpl('api')
     this.queryMode = getFieldOfTmpl('queryMode')
     this.allModels = allModels
+    this.handler = handler
     this.initRequestParams()
     // getData
-    this.get({}).then()
+
+    // if (handler?.queryBefore) {
+    //   handler.queryBefore({ data: this.allModels.queryModel.model, current: this.allModels.queryModel }).then((data) => {
+    //     this.get({ ...data })
+    //   })
+    // }
+    // else {
+    //   this.get({})
+    // }
+    this.get({})
   }
 
   /**
@@ -113,7 +124,15 @@ export class RequestFuzzy implements Request<any, any, any> {
   async get(params: object = {}) {
     watchEffect(async() => {
       _.debounce(() => {
-        this.getReqDo(params)
+        if (this.handler?.queryBefore) {
+          this.handler.queryBefore({ data: { ...this.allModels.queryModel.model, ...params }, current: this.allModels.queryModel })
+            .then((data) => {
+              this.getReqDo({ ...data })
+            })
+        }
+        else {
+          this.getReqDo(params)
+        }
       }, 100)()
     })
   }
@@ -131,10 +150,22 @@ export class RequestFuzzy implements Request<any, any, any> {
     }
   }
 
-  delete(id: number | string) {
+  delete(id: number | string, _body: Record<string, any>) {
+    let url = `${this.getApiOfReqMode('delete')}?id=${[id]}`
+    let body = {}
+
+    if (_body?.url && _body?.params) {
+      url = _body.url
+      body = _body.params
+    }
+    else if (Object.keys(_body).length > 0) {
+      body = _body
+    }
+
     return new Promise((resolve, reject) => {
-      this.axiosInstance
-        .delete(`${this.getApiOfReqMode('delete')}?id=${[id]}`)
+      this.axiosInstance.delete(url, {
+        params: body,
+      })
         .then((response: any) => {
           const { success } = response
           if (success)

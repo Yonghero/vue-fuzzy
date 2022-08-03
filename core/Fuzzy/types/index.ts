@@ -229,6 +229,7 @@ enum OperatorCmd {
 interface HandlerParams {
   data: any
   current: any
+  url?: string
 }
 
 /**
@@ -256,8 +257,9 @@ interface FuzzyHandler {
   updateBeforePop?: (params: HandlerParams) => any //
   /**
    * 删除前
+   * @Returns 如果传递了url和params 删除会调用传递的url和parmas作为body参数 如果没传url系统默认设置url 返回值直接当作删除接口的body参数
    */
-  deleteBefore?: (params: HandlerParams) => any //
+  deleteBefore?: (params: HandlerParams) => { url?: string; params?: Record<string, any> } //
   /**
    * 确认更新时
    */

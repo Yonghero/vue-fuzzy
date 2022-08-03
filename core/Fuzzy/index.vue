@@ -48,7 +48,7 @@ onMounted(() => {
   scrollBar.value.$el.style.height = `calc(100% - ${`${bar.value.$el.clientHeight}px`})`
 })
 // 初始化
-const { requestFuzzyRef } = initializeFuzzy(props.config as TemplateConfiguration, props.handler as FuzzyHandler)
+const { requestFuzzyRef, queryModel } = initializeFuzzy(props.config as TemplateConfiguration, props.handler as FuzzyHandler)
 
 // dialog 配置
 const {
@@ -67,6 +67,7 @@ const {
 
 defineExpose({
   request: requestFuzzyRef,
+  queryModel: queryModel.value,
   fuzzyDialogVisible: dialogVisible,
 })
 

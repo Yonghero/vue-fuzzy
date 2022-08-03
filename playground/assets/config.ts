@@ -10,6 +10,7 @@ export const config = {
   pagination: {
     size: 10,
   },
+  queryMode: ['advanced', 'advanced'],
   templates: [[
     {
       label: '序号',
@@ -28,6 +29,15 @@ export const config = {
       visible: {
         query: true,
       },
+    },
+    {
+      label: 'xxx',
+      width: '300px',
+      value: 'testfield',
+      visible: {
+        query: true,
+      },
+      queryUnShow: true,
     },
     {
       label: '企业名称',
@@ -171,9 +181,9 @@ export const config = {
 } as TemplateConfiguration
 
 export const singleConfig = {
-  api: '/safety/ent/base',
+  // api: '/safety/ent/base',
+  api: '/safety/troubleshoot-task-configuration',
   title: '这是标题aaa',
-  queryMode: 'advanced',
   feature: { create: true, delete: true, update: true },
   pagination: {
     size: 10,
@@ -188,14 +198,22 @@ export const singleConfig = {
     },
     {
       label: '企业简称',
-      value: 'entName',
-      queryOperator: 'eq',
+      value: 'name',
       type: FormItemEnum.select,
       items: [
         { label: '全部', value: '' }],
       visible: {
         query: true,
       },
+    },
+    {
+      label: 'xxx',
+      width: '300px',
+      value: 'testfield',
+      visible: {
+        query: true,
+      },
+      queryUnShow: true,
     },
     {
       label: '企业名称',

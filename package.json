@@ -1,6 +1,6 @@
 {
   "name": "vue-fuzzy",
-  "version": "1.0.43",
+  "version": "1.1.4",
   "description": "On the background management system Fuzzy Provides one - stop add, delete, change and check configurable component",
   "keywords": [
     "npm",
@@ -35,7 +35,7 @@
     "preview": "vite preview",
     "pub": "npm run build && npm version patch && npm publish --access public --force"
   },
-  "dependencies": {
+  "peerdependencies": {
     "element-plus": "^2.1.9",
     "vue": "^3.2.25",
     "vue-demi": "^0.12.5"
