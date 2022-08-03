@@ -93,11 +93,7 @@
 </template>
 
 <script setup lang='ts'>
-<<<<<<< HEAD
-import { ElEmpty, ElMessage, ElMessageBox, ElTable, ElTableColumn } from 'element-plus'
-=======
 import { ElMessage, ElMessageBox } from 'element-plus'
->>>>>>> 34-copy
 import { BarModelProvide, FuzzyHandlerProvide, OperatorCmd, PagingModelProvide, RequestModelProvide, TableModelProvide } from '../types'
 
 const tableModel = inject(TableModelProvide)
