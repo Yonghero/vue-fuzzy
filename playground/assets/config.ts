@@ -181,8 +181,7 @@ export const config = {
 } as TemplateConfiguration
 
 export const singleConfig = {
-  // api: '/safety/ent/base',
-  api: '/safety/troubleshoot-task-configuration',
+  api: '/safety/ent/base',
   title: '这是标题aaa',
   feature: { create: true, delete: true, update: true },
   pagination: {
