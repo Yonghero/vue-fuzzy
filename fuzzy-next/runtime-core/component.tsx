@@ -1,19 +1,24 @@
 import type { PropType } from 'vue'
-import { DefaultLayoutProvider } from '../impl-layout-provider/default-layout-provider'
 import type { LayoutProvider, OptionsConfiguration, Renderer } from '../types'
 import type { RequestProvider } from '../types/requestProvider'
 import { LiftOff } from './lift-off'
 
-export function createComponent(renderer: Renderer, layoutProvider: LayoutProvider | undefined, requestProvider: RequestProvider) {
-  const Layout = layoutProvider || new DefaultLayoutProvider()
+export function createComponent(globalRenderer: Renderer, globalLayoutProvider: LayoutProvider, requestProvider: RequestProvider) {
   return defineComponent({
     props: {
+      a: String,
       options: {
         type: Object as (PropType<OptionsConfiguration<any>>),
-        default: () => ({
-          template: [],
-        }),
+        default: () => ({ template: [] }),
         required: true,
+      },
+      renderer: {
+        type: Object as (PropType<Renderer>),
+        default: () => globalRenderer,
+      },
+      layoutProvider: {
+        type: Object as (PropType<LayoutProvider>),
+        default: () => globalLayoutProvider,
       },
       mock: {
         type: Array,
@@ -41,7 +46,7 @@ export function createComponent(renderer: Renderer, layoutProvider: LayoutProvid
 
       // Tab Component
       const computedTab = computed(() => {
-        return <renderer.tab.render
+        return <props.renderer.tab.render
           vModel={activeTabIndex.value}
           options={mergeOptions.value.map((i, idx) => ({ label: i.title, value: idx }))}
         />
@@ -49,9 +54,8 @@ export function createComponent(renderer: Renderer, layoutProvider: LayoutProvid
 
       // 根据activeOptions页面配置动态渲染
       const dynamicLayout = computed(() => {
-        const components = LiftOff(renderer, activeOptions.value, props.mock, requestProvider)
-
-        return Layout.render({ ...components, Tab: computedTab.value })
+        const components = LiftOff(props.renderer, activeOptions.value, props.mock, requestProvider)
+        return props.layoutProvider.render({ ...components, Tab: computedTab.value })
       })
 
       return () => (

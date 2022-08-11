@@ -1,33 +1,25 @@
-import { ElForm, ElFormItem } from 'element-plus'
-import { reactive } from 'vue'
 import type { VNode } from 'vue'
+import { computed, reactive } from 'vue'
 import type { FormCompProps, FormItem, FormRenderProps, FormRenderer, Templates } from '../../types'
 
-export class ElementUIForm implements FormRenderer {
+export class ArcoUIForm implements FormRenderer {
   render({ templates }: FormRenderProps) {
     const model = this.getModel(templates)
+
     const FormItems = this.getFromItems(templates, model)
 
     return {
       render: (
-        <ElForm model={model} class="flex flex-wrap gap-x-5"
-          style={{
-            display: 'flex',
-          }}
-        >
+        <a-form model={model} layout={'inline'} size={'medium'}>
           {
             FormItems
           }
-        </ElForm>
+        </a-form>
       ),
       model,
     }
   }
 
-  /**
-   * 获取绑定表单的数据迷行
-   * @param templates
-   */
   getModel(templates: Templates[]) {
     const model = reactive({})
     templates.forEach((item) => {
@@ -37,20 +29,16 @@ export class ElementUIForm implements FormRenderer {
     return model
   }
 
-  /**
-   * 根据templates 生产表单项组件
-   * @param templates
-   * @param model
-   */
   getFromItems(templates: Templates[], model) {
     return templates.map((item) => {
       const FormItemComp = this._getFormComponent(item.type)
       return (
-        <ElFormItem
-          label={item.label}
-          key={item.value}>
+        <a-form-item
+          key={item.value}
+          field={item.label}
+          label={item.label}>
           <FormItemComp {...item} model={model}/>
-        </ElFormItem>
+        </a-form-item>
       )
     })
   }
@@ -63,40 +51,57 @@ export class ElementUIForm implements FormRenderer {
     return COMPS_MAP[type]
   }
 
-  input(props: FormCompProps) {
+  input(props: Partial<FormCompProps>) {
     const _props = computed(() => {
       const p = { ...props }
       delete p.value
       return p
     })
     return (
-      <el-input
+      <a-input
         v-model={props.model[props.value]}
         placeholder="请输入"
-        size="default"
         {..._props.value}
-      />
+      >
+      </a-input>
     )
   }
 
-  select(props: FormCompProps, { emit }): VNode {
+  select(props: Partial<FormCompProps>, { emit }): VNode {
     return (
-      <el-select
+      <a-select
         onChange={v => emit('change', props.value, v)}
         v-model={props.model[props.value]}
-        {...props}
       >
         {
           props.options
-            && props.options.map(item => (
-              <el-option
-                key={item.value}
-                label={item.label}
-                value={item.value}
-              />
-            ))
+              && props.options.map(item => (
+                <a-option
+                  key={item.value}
+                  value={item.value}
+                >{
+                    item.label
+                  }</a-option>
+              ))
         }
-      </el-select>
+      </a-select>
     )
   }
 }
+
+// <a-form :model="form" :style="{width:'600px'}" @submit="handleSubmit">
+//     <a-form-item field="name" label="Username">
+//     <a-input v-model="form.name" placeholder="please enter your username..." />
+//     </a-form-item>
+// <a-form-item field="post" label="Post">
+//     <a-input v-model="form.post" placeholder="please enter your post..." />
+// </a-form-item>
+// <a-form-item field="isRead">
+//     <a-checkbox v-model="form.isRead">
+//         I have read the manual
+//     </a-checkbox>
+// </a-form-item>
+// <a-form-item>
+//     <a-button html-type="submit">Submit</a-button>
+// </a-form-item>
+// </a-form>

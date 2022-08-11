@@ -7,8 +7,8 @@ export class DefaultLayoutProvider implements LayoutProvider {
         <div>
           { renderer.Tab }
         </div>
-        <div class="flex flex-wrap px-6 pt-6 pb-2 items-start justify-between">
-          { renderer.Filter}
+        <div class="flex flex-nowrap px-6 pt-6 pb-2 items-start justify-between">
+          { renderer.Filter }
           { renderer.FilterButton }
         </div>
         <div class="relative top-100">

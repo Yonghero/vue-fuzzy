@@ -90,6 +90,22 @@ export interface FormTemplate extends BaseTemplate {
    */
   defaultQueryValue?: string
   /**
+   * 是否禁用
+   */
+  disabled?: boolean
+  /**
+   * 是否只读
+   */
+  readonly?: boolean
+  /**
+   * 表单尺寸
+   */
+  size?: string
+  /**
+   * 是否多选
+   */
+  multiple?: boolean
+  /**
    *  该字段的表单规则 参照element-plus
    */
   rules?: []

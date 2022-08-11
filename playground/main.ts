@@ -4,6 +4,7 @@ import ElementPlus from 'element-plus'
 import ArcoVue from '@arco-design/web-vue'
 import zhCn from 'element-plus/es/locale/lang/zh-cn'
 import { DefaultLayoutProvider } from '../fuzzy-next/impl-layout-provider/default-layout-provider'
+import { ArcoUIRenderer } from '../fuzzy-next/impl-renderer/arco-ui-renderer'
 import { ElementUIRenderer } from '../fuzzy-next/impl-renderer/element-ui-renderer'
 import { DefaultRequestProvider } from '../fuzzy-next/impl-request-provider/default-request-provider'
 import { createFuzzy } from '../fuzzy-next/runtime-core'
@@ -26,7 +27,7 @@ axiosInstance.interceptors.request.use(
   })
 
 const Fuzzy = createFuzzy()
-  .renderer(new ElementUIRenderer())
+  .renderer(new ArcoUIRenderer())
   .layoutProvider(new DefaultLayoutProvider())
   .requestProvider(new DefaultRequestProvider(axiosInstance))
 

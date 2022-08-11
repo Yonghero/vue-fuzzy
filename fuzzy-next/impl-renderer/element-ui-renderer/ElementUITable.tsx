@@ -35,8 +35,6 @@ export class ElementUITable implements TableRenderer {
           default: scope => this._getColumn(item, scope),
         }
 
-        console.log(item, '-')
-
         return <ElTableColumn
           v-slots={columnsSlots}
           key={item.value}

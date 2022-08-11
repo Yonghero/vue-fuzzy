@@ -15,7 +15,6 @@ export function createRequest(options: OptionsConfiguration<any>, request: Reque
   return {
     get: (params) => {
       filterParams.value = { ...filterParams.value, ...params }
-      console.log(filterParams.value, 'filter')
       return request.get(getApiOfMode('filter'), filterParams.value)
     },
   }
