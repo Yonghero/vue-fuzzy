@@ -1,4 +1,4 @@
-@forward 'element-plus/theme-chalk/src/common/var.scss' with (
+@forward '../../../../node_modules/element-plus/theme-chalk/src/common/var' with (
   $colors: (
     'primary': (
       'base': #3A87FF,
@@ -11,4 +11,4 @@
     )
   ),
 );
-@use "element-plus/theme-chalk/src/index.scss" as *;
+@use "../../../../node_modules/element-plus/theme-chalk/src/index" as *;
