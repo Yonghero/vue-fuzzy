@@ -1,7 +1,7 @@
 import type { App, Component } from 'vue'
 import type { AxiosInstance } from 'axios'
 import Fuzzy from './Fuzzy/index.vue'
-// import './Fuzzy/models/index.css'
+// import './Fuzzy/models/index.scss'
 import { setRequest, setResponse } from './shared'
 import type { ResponseHandler } from './Fuzzy/types'
 import 'virtual:windi.css'

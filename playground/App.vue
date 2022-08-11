@@ -1,34 +1,7 @@
 <script setup lang="ts">
-import Fuzzy from '../core/Fuzzy/index.vue'
-import type { FuzzyHandler } from '../core/Fuzzy/types'
-import { singleConfig } from './assets/config'
-
-const fuzzy = ref()
-
-const handler: FuzzyHandler = {
-  queryBefore: async({ data }) => {
-    console.log('querybefore')
-    // data.entName = '22'
-    return data
-  },
-  deleteBefore: ({ url }) => {
-    console.log('deletebefore,url: ', url)
-    return {}
-  },
-}
-
-const onClick = () => {
-  fuzzy.value.request.get({})
-}
+import NextTemplate from './example/next/index.vue'
 </script>
 
 <template>
-  <button @click="onClick">
-    111
-  </button>
-  <div class="w-full h-full box-border bg-light-100">
-    <Fuzzy ref="fuzzy" :config="singleConfig" :handler="handler" />
-  </div>
+  <NextTemplate />
 </template>
-<style>
-</style>

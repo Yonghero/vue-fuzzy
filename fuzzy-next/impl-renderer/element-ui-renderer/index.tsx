@@ -2,12 +2,18 @@
 import type { Renderer } from '../../types'
 import { ElementUIButton } from './ElementUIButton'
 import { ElementUIForm } from './ElementUIForm'
+import { ElementUIMessage } from './ElementUIMessage'
+import { ElementUIPage } from './ElementUIPage'
+import { ElementUITab } from './ElementUITab'
 import { ElementUITable } from './ElementUITable'
+import { ElementUIDialog } from './ElementUIDialog'
 
-export function ElementUIRenderer(): Renderer {
-  return {
-    button: new ElementUIButton(),
-    table: new ElementUITable(),
-    form: new ElementUIForm(),
-  }
+export class ElementUIRenderer implements Renderer {
+  button = new ElementUIButton()
+  dialog = new ElementUIDialog()
+  form = new ElementUIForm()
+  page = new ElementUIPage()
+  tab = new ElementUITab()
+  table = new ElementUITable()
+  message = new ElementUIMessage()
 }

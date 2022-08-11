@@ -5,7 +5,10 @@ export interface LayoutProvider{
 }
 
 export interface LayoutProviderRenderer{
-  Table: VNode<any>
+  Table: () => VNode<any>
   FilterButton: VNode<any>
   Filter: VNode<any>
+  Page: VNode
+  Tab: VNode
+  Dialog: VNode
 }

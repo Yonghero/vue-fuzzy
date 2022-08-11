@@ -16,5 +16,6 @@ module.exports = {
     'react/display-name': 'off',
     'no-debugger': 'off',
     'no-restricted-syntax': 'off',
+    'react/prop-types': 'off',
   },
 }

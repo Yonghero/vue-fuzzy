@@ -6,6 +6,7 @@ export interface ValueOfProvide {
   tableData: Ref<any[]>
   total: Ref<number>
   tableLoading: Ref<boolean>
+  dialog: Ref<DialogProps>
 }
 
 export interface DispatchOfProvide {
@@ -13,6 +14,7 @@ export interface DispatchOfProvide {
   setTableData: (data: any) => void
   setTotal: (num) => void
   setTableLoading: (loading: boolean) => void
+  setDialog: (dialog: Partial<DialogProps>) => void
 }
 
 export interface DataProvider extends ValueOfProvide{
@@ -22,6 +24,7 @@ export interface DataProvider extends ValueOfProvide{
 export interface DialogProps {
   visible: boolean
   render: VNode
+  title: string
 }
 
 /**
@@ -36,7 +39,8 @@ export function createDataProvide(): DataProvider {
 
   const dialog = ref<DialogProps>({
     visible: false,
-    render: () => <></>
+    title: '编辑',
+    render: <>123</>,
   })
 
   const dispatch = {
@@ -52,6 +56,9 @@ export function createDataProvide(): DataProvider {
     setTableLoading(loading) {
       tableLoading.value = loading
     },
+    setDialog(props: Partial<DialogProps>) {
+      dialog.value = { ...dialog.value, ...props }
+    },
   }
 
   return {
@@ -60,5 +67,6 @@ export function createDataProvide(): DataProvider {
     tableData,
     total,
     tableLoading,
+    dialog,
   }
 }

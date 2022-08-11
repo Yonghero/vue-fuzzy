@@ -3,35 +3,39 @@ import type { VNode } from 'vue'
 import type { Feature, TableRenderProps, TableRenderer, TableTemplate, Templates } from '../../types'
 
 export class ElementUITable implements TableRenderer {
-  render({ templates, data, feature }: TableRenderProps) {
+  render({ templates, feature }: TableRenderProps) {
     const slots = {
       empty: () => (<ElEmpty/>),
     }
-
     const TableColumn = this.getColumns(templates, feature)
 
-    return (
-      <ElTable
+    return (props) => {
+      return (<ElTable
         v-slots={slots}
-        data={data}
+        data={props.data.value}
+        v-loading={props.loading.value}
       >
         {
           TableColumn
         }
       </ElTable>
-    )
+      )
+    }
   }
 
   getColumns(templates: Templates[], feature: Feature | undefined): VNode[] {
     const filedColumns = templates
       .filter(item => !(
-        (item.visible && item.visible.table && typeof item.visible.table === 'boolean' && !item.visible.table)
-          || (item.visible && typeof item.visible.table === 'function' && item.visible.table(item))
+        (item.visible && item.visible.table && typeof item.visible.table === 'boolean' && !item.visible.table && item.label)
+          || (item.visible && typeof item.visible.table === 'function' && item.visible.table(item) && item.label)
       ))
+      .filter(item => item.label)
       .map((item) => {
         const columnsSlots = {
           default: scope => this._getColumn(item, scope),
         }
+
+        console.log(item, '-')
 
         return <ElTableColumn
           v-slots={columnsSlots}
@@ -45,10 +49,11 @@ export class ElementUITable implements TableRenderer {
       })
 
     if (this.shouldFeaturesRender(feature)) {
+      const operatorItem = templates.find(t => t.value === 'fuzzy-table-operate') as TableTemplate
       return [...filedColumns,
         <ElTableColumn
           v-slots={{
-            default: () => (<div>这是操作</div>),
+            default: scope => (this._getColumn(operatorItem, scope)),
           }}
           key="fuzzy-table-operate"
           label="操作"

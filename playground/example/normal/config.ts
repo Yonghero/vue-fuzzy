@@ -1,6 +1,6 @@
 // import type { TemplateConfiguration } from '~/components/Fuzzy/types'
-import { FormItemEnum } from '../../core/Fuzzy/types'
-import type { TemplateConfiguration } from '../../core/Fuzzy/types'
+import { FormItemEnum } from '../../../core/Fuzzy/types/index'
+import type { TemplateConfiguration } from '../../../core/Fuzzy/types/index'
 
 export const config = {
   api: ['/safety/ent/base', '/safety/ent/base'],

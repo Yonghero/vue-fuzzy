@@ -1,12 +1,11 @@
 import type { PropType } from 'vue'
 import { DefaultLayoutProvider } from '../impl-layout-provider/default-layout-provider'
-import type { LayoutProvider, LayoutProviderRenderer, OptionsConfiguration, Renderer } from '../types'
-import { combination } from './combination'
-import 'virtual:windi.css'
+import type { LayoutProvider, OptionsConfiguration, Renderer } from '../types'
+import type { RequestProvider } from '../types/requestProvider'
+import { LiftOff } from './lift-off'
 
-export function createComponent(renderer: Renderer, layoutProvider: LayoutProvider | undefined) {
+export function createComponent(renderer: Renderer, layoutProvider: LayoutProvider | undefined, requestProvider: RequestProvider) {
   const Layout = layoutProvider || new DefaultLayoutProvider()
-
   return defineComponent({
     props: {
       options: {
@@ -14,6 +13,7 @@ export function createComponent(renderer: Renderer, layoutProvider: LayoutProvid
         default: () => ({
           template: [],
         }),
+        required: true,
       },
       mock: {
         type: Array,
@@ -23,44 +23,41 @@ export function createComponent(renderer: Renderer, layoutProvider: LayoutProvid
     setup(props) {
       console.log(`%c${'component setup-----'}`, 'color: #008c8c', props)
 
-      const data = computed(() => {
-        if (props.mock?.length) return props.mock
-        return []
+      // 合并options 为多tab页做准备
+      const mergeOptions = computed(() => {
+        if (Array.isArray(props.options))
+          return props.options
+        else
+          return [props.options]
       })
 
-      const Table = renderer.table.render({
-        templates: props.options?.template,
-        data: data.value,
-        feature: props.options?.feature,
+      // 当前选中的tab下标
+      const activeTabIndex = ref(0)
+
+      // 最新的页面配置
+      const activeOptions = computed(() => {
+        return mergeOptions.value[activeTabIndex.value]
       })
 
-      const FilterFrom = renderer.form.render({
-        templates: props.options?.template.filter(item => !(item.visible && item.visible.filter === false)),
-        feature: props.options?.feature,
-        isHorizontal: true,
+      // Tab Component
+      const computedTab = computed(() => {
+        return <renderer.tab.render
+          vModel={activeTabIndex.value}
+          options={mergeOptions.value.map((i, idx) => ({ label: i.title, value: idx }))}
+        />
       })
 
-      const Button = renderer.button.render
+      // 根据activeOptions页面配置动态渲染
+      const dynamicLayout = computed(() => {
+        const components = LiftOff(renderer, activeOptions.value, props.mock, requestProvider)
 
-      function FilterButton() {
-        return <Button onClick={() => {
-          console.log('filter button click', FilterFrom.model)
-        }
-        }>查询</Button>
-      }
-
-      combination({ Table, FilterFrom, Button })
-
-      const providerRender = {
-        Table,
-        Filter: FilterFrom.render,
-        FilterButton: <FilterButton/>,
-      } as LayoutProviderRenderer
+        return Layout.render({ ...components, Tab: computedTab.value })
+      })
 
       return () => (
         <>
           {
-            Layout.render(providerRender)
+            dynamicLayout.value
           }
         </>
       )

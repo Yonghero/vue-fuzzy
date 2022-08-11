@@ -1,18 +1,18 @@
 <script setup lang="ts">
-import Fuzzy from '../core/Fuzzy/index.vue'
-import type { FuzzyHandler } from '../core/Fuzzy/types'
-import { singleConfig } from './assets/config'
+import Fuzzy from '../../../core/Fuzzy/index.vue'
+import type { FuzzyHandler } from '../../../core/Fuzzy/types/index'
+import { singleConfig } from './config'
 
 const fuzzy = ref()
 
 const handler: FuzzyHandler = {
   queryBefore: async({ data }) => {
-    console.log('querybefore')
+    console.log('query before')
     // data.entName = '22'
     return data
   },
   deleteBefore: ({ url }) => {
-    console.log('deletebefore,url: ', url)
+    console.log('delete before url: ', url)
     return {}
   },
 }

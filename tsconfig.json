@@ -12,6 +12,7 @@
     "lib": ["esnext", "dom"],
     "suppressImplicitAnyIndexErrors": true,
     "noImplicitAny": false,
+    "allowSyntheticDefaultImports": true,
     "paths": {
       "~/*": ["./playground/*"]
     },

@@ -39,7 +39,7 @@ interface BaseTemplate {
    *
    */
   visible?: {
-    query?: boolean | ((row: any) => boolean)
+    filter?: boolean | ((row: any) => boolean)
     table?: boolean | ((row: any) => boolean)
     create?: boolean | ((row: any) => boolean)
     update?: boolean | ((row: any) => boolean)
@@ -55,7 +55,6 @@ export interface Templates extends
   TableTemplate,
   FormTemplate,
   FilterTemplate {
-
 }
 
 /**
@@ -128,11 +127,11 @@ export interface FilterTemplate extends BaseTemplate {
 
 export type FormItem = 'input' | 'select' | 'datePicker' | 'dateRangePicker'
 
-interface Api {
+export interface Api {
   create: string
   update: string
   delete: string
-  query: string
+  filter: string
 }
 
 /**
