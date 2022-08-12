@@ -1,12 +1,12 @@
 import type { PropType } from 'vue'
-import type { LayoutProvider, OptionsConfiguration, Renderer } from '../types'
+import type { LayoutProvider, ModalRenderer, OptionsConfiguration, Renderer } from '../types'
+import type { FuzzyNextHandlers } from '../types/handler'
 import type { RequestProvider } from '../types/requestProvider'
 import { LiftOff } from './lift-off'
 
 export function createComponent(globalRenderer: Renderer, globalLayoutProvider: LayoutProvider, requestProvider: RequestProvider) {
   return defineComponent({
     props: {
-      a: String,
       options: {
         type: Object as (PropType<OptionsConfiguration<any>>),
         default: () => ({ template: [] }),
@@ -17,8 +17,16 @@ export function createComponent(globalRenderer: Renderer, globalLayoutProvider: 
         default: () => globalRenderer,
       },
       layoutProvider: {
-        type: Object as (PropType<LayoutProvider>),
+        type: Object as (PropType<any>),
         default: () => globalLayoutProvider,
+      },
+      modalRenderer: {
+        type: Object as (PropType<ModalRenderer>),
+        default: () => ({}),
+      },
+      handlers: {
+        type: Object as (PropType<FuzzyNextHandlers>),
+        default: () => ({}),
       },
       mock: {
         type: Array,
@@ -26,7 +34,7 @@ export function createComponent(globalRenderer: Renderer, globalLayoutProvider: 
       },
     },
     setup(props) {
-      console.log(`%c${'component setup-----'}`, 'color: #008c8c', props)
+      console.log(`%c${'-----component setup-----'}`, 'color: #008c8c')
 
       // 合并options 为多tab页做准备
       const mergeOptions = computed(() => {
@@ -54,8 +62,10 @@ export function createComponent(globalRenderer: Renderer, globalLayoutProvider: 
 
       // 根据activeOptions页面配置动态渲染
       const dynamicLayout = computed(() => {
-        const components = LiftOff(props.renderer, activeOptions.value, props.mock, requestProvider)
-        return props.layoutProvider.render({ ...components, Tab: computedTab.value })
+        const components = LiftOff(props.renderer, props.modalRenderer, props.handlers, activeOptions.value, props.mock, requestProvider)
+        return (
+          <props.layoutProvider renderer={{ ...components, Tab: computedTab.value }}></props.layoutProvider>
+        )
       })
 
       return () => (

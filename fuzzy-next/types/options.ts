@@ -23,6 +23,16 @@ export interface OptionsConfiguration<T> {
    * 需要展示的每个字段 可配置每个字段对应的功能
    */
   template: Templates[] & T
+
+  /**
+   * 对话框样式配置
+   */
+  modalStyle?: ModalStyleProps
+}
+
+export interface ModalStyleProps {
+  width?: string | number
+  top?: string
 }
 
 interface BaseTemplate {

@@ -1,5 +1,6 @@
 import type { Renderer } from '../../types'
 import { ElementUIButton } from './ElementUIButton'
+import { ElementUIConfirm } from './ElementUIConfirm'
 import { ElementUIForm } from './ElementUIForm'
 import { ElementUIMessage } from './ElementUIMessage'
 import { ElementUIPage } from './ElementUIPage'
@@ -15,4 +16,5 @@ export class ElementUIRenderer implements Renderer {
   tab = new ElementUITab()
   table = new ElementUITable()
   message = new ElementUIMessage()
+  confirm = new ElementUIConfirm()
 }

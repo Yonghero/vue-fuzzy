@@ -1,4 +1,5 @@
-import type { LayoutProviderRenderer, OptionsConfiguration, Renderer, Templates } from '../../types'
+import type { LayoutProviderRenderer, ModalRenderer, OptionsConfiguration, Renderer, Templates } from '../../types'
+import type { FuzzyNextHandlers } from '../../types/handler'
 import type { RequestProvider } from '../../types/requestProvider'
 import { createDataProvide } from './createDataProvide'
 import { createDialog } from './createDialog'
@@ -6,28 +7,39 @@ import { createFilter } from './createFilter'
 import { createPage } from './createPage'
 import { createRequest } from './createRequest'
 import { createTable } from './createTable'
+import { createCreateButton } from './createCreateButton'
 
-export function LiftOff(renderer: Renderer, options: OptionsConfiguration<any>, mock: any[], request: RequestProvider): Omit<LayoutProviderRenderer, 'Tab'> {
-  console.log('LiftOff----', options)
+export function LiftOff(
+  renderer: Renderer,
+  modalRenderer: ModalRenderer,
+  handlers: FuzzyNextHandlers,
+  options: OptionsConfiguration<any>,
+  mock: any[],
+  request: RequestProvider): Omit<LayoutProviderRenderer, 'Tab'> {
+  console.log('----LiftOff----')
 
   // global data provide
   // dispatch data
   const dataProvide = createDataProvide()
 
   // provide request's methods
-  const requestCallback = createRequest(options, request)
+  const requestCallback = createRequest(options, request, handlers, dataProvide)
+
+  const Dialog = createDialog(renderer, modalRenderer, handlers, requestCallback, dataProvide)
 
   // Table Component
   const Table = createTable(
-    renderer.table,
+    renderer,
+    modalRenderer,
+    handlers,
     getTemplatesWithFeature(options.template, 'table'),
     dataProvide,
     requestCallback,
-    options.feature,
+    options,
   )
 
   // Page Component
-  const Page = createPage(renderer, requestCallback, dataProvide)
+  const Page = createPage(renderer, handlers, requestCallback, dataProvide)
 
   // Filter Component
   const {
@@ -41,7 +53,7 @@ export function LiftOff(renderer: Renderer, options: OptionsConfiguration<any>, 
     dataProvide,
   )
 
-  const Dialog = createDialog(renderer, dataProvide)
+  const CreateButton = createCreateButton(renderer, modalRenderer, getTemplatesWithFeature(options.template, 'create'), handlers, requestCallback, dataProvide, options)
 
   return {
     Filter,
@@ -49,6 +61,7 @@ export function LiftOff(renderer: Renderer, options: OptionsConfiguration<any>, 
     Table,
     Page,
     Dialog,
+    CreateButton,
   }
 }
 

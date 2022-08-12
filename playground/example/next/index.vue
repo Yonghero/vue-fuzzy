@@ -1,7 +1,8 @@
 <script  lang="tsx" setup>
 import { mergeFuzzyOptions } from '../../../fuzzy-next/utils'
 import { ElementUIRenderer } from '../../../fuzzy-next/impl-renderer/element-ui-renderer'
-import { options, options2 } from './template'
+import { ArcoUIRenderer } from '../../../fuzzy-next/impl-renderer/arco-ui-renderer'
+import { CreateComponent, UpdateComponent, handlers, options, options2 } from './template'
 
 const _options = mergeFuzzyOptions(options, options2)
 const uiRenderer = new ElementUIRenderer()
@@ -12,5 +13,10 @@ const uiRenderer = new ElementUIRenderer()
   <Fuzzy
     :options="_options"
     :renderer="uiRenderer"
+    :handlers="handlers"
+    :modal-renderer="{
+      UpdateComponent,
+      CreateComponent
+    }"
   />
 </template>

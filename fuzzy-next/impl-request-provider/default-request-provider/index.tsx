@@ -19,8 +19,9 @@ export class DefaultRequestProvider implements RequestProvider {
     this._instance = instance
   }
 
-  delete(url: string, params: any): Promise<any> {
-    return Promise.resolve(undefined)
+  delete(url: string, params: any): Promise<Pick<Response, 'success' | 'message'>> {
+    return this._instance.delete(`${url}?id=${params.row.id}`)
+      .then(res => this.implResponse(res.data))
   }
 
   get(url: string, params: any): Promise<Required<Response>> {

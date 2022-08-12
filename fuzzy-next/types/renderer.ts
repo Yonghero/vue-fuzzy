@@ -3,7 +3,7 @@
  */
 import type { SetupContext } from '@vue/runtime-core'
 import type { Component, Ref, VNode } from 'vue'
-import type { Feature, FormTemplate, Option, Templates } from './options'
+import type { Feature, FormTemplate, ModalStyleProps, Option, Templates } from './options'
 
 export interface Renderer {
   table: TableRenderer
@@ -13,6 +13,7 @@ export interface Renderer {
   tab: TabRenderer
   page: PageRenderer
   message: MessageRender
+  confirm: ConfirmRender
 }
 
 /**
@@ -92,14 +93,31 @@ export interface DialogRenderer{
   render: (props: Readonly<DialogRenderProps>, context: SetupContext) => VNode
 }
 export interface DialogRenderProps {
-  modelValue: boolean
+  modelValue?: any
   title: string
   footer?: VNode[]
-  style?: Record<string, any>
+  style?: ModalStyleProps
+  onUpdate?: (scope: any) => void // vue emit
 }
 
 export interface MessageRender {
   success: (message) => any
   warning: (message) => any
   error: (message) => any
+}
+
+export interface ModalRenderer {
+  UpdateComponent: VNode | Element | Component | JSX.Element
+  CreateComponent: VNode | Element | Component | JSX.Element
+}
+
+export interface ConfirmRenderProps {
+  type: 'warning' | 'error' | 'success' | 'info'
+  onOk: () => void
+  onCancel: () => void
+  content: string
+}
+
+export interface ConfirmRender {
+  render: (props: Readonly<ConfirmRenderProps>, context: SetupContext) => VNode
 }

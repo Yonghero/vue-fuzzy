@@ -7,6 +7,7 @@ export interface ValueOfProvide {
   total: Ref<number>
   tableLoading: Ref<boolean>
   dialog: Ref<DialogProps>
+  dialogVisible: Ref<boolean>
 }
 
 export interface DispatchOfProvide {
@@ -40,8 +41,10 @@ export function createDataProvide(): DataProvider {
   const dialog = ref<DialogProps>({
     visible: false,
     title: '编辑',
-    render: <>123</>,
+    render: <>hhh</>,
   })
+
+  const dialogVisible = ref(false)
 
   const dispatch = {
     setFilterParams(params) {
@@ -68,5 +71,6 @@ export function createDataProvide(): DataProvider {
     total,
     tableLoading,
     dialog,
+    dialogVisible,
   }
 }

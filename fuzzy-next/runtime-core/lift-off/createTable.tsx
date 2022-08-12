@@ -1,31 +1,68 @@
-import type { Feature, TableRenderer, TableTemplate, Templates } from '../../types'
+import type { ModalRenderer, OptionsConfiguration, Renderer, TableTemplate, Templates } from '../../types'
+import type { FuzzyNextHandlers } from '../../types/handler'
 import type { RequestCallback } from '../../types/requestProvider'
 import type { DataProvider } from './createDataProvide'
 
-export function createTable(table: TableRenderer, templates: Partial<Templates>[], dataProvider: DataProvider, requestCallback: RequestCallback, feature: Feature | undefined): any {
-  function onUpdate(item: Templates, scope) {
-    console.log(item, scope, 'update')
+export function createTable(renderer: Renderer, modalRenderer: ModalRenderer, handlers: FuzzyNextHandlers, templates: Partial<Templates>[], dataProvider: DataProvider, requestCallback: RequestCallback, options: OptionsConfiguration<any>): any {
+  function onUpdate(scope) {
+    console.log(scope)
+
+    if (handlers.updateBeforePop)
+      handlers.updateBeforePop({ data: scope, url: requestCallback.urls.update })
+
+    dataProvider.dispatch.setDialog({
+      visible: true,
+      title: `编辑${options.title}`,
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-expect-error ts
+      render: <modalRenderer.UpdateComponent row={scope.row}/>,
+    })
   }
 
-  function onDelete(item: Templates, scope) {
-    console.log(item, scope, 'delete')
+  async function onDelete(scope) {
+    if (handlers.deleteBefore)
+      await handlers.deleteBefore({ data: scope, url: requestCallback.urls.delete })
+
+    const { success, message } = await requestCallback.delete(scope)
+    if (success) {
+      renderer.message.success('删除成功')
+
+      // 删除成功后 重新请求最新的数据
+      await requestCallback.get({})
+      return
+    }
+    renderer.message.error(message)
   }
 
   templates.push({
     width: 200,
     value: 'fuzzy-table-operate',
-    render(item, scope) {
-      return <div class="w-full h-full flex justify-center items-center gap-x-3">
-        <div class="text-blue-500 cursor-pointer" onClick={() => onUpdate(item, scope)}>编辑</div>
-        <div class="text-red-500 cursor-pointer" onClick={() => onDelete(item, scope)}>删除</div>
-      </div>
+    render(scope) {
+      return (<div class="w-full h-full flex justify-center items-center gap-x-10">
+        {
+          options.feature && options.feature.update === false
+            ? null
+            : <div class="text-blue-500 cursor-pointer" onClick={() => onUpdate(scope)}>编辑</div>
+        }
+        {
+          options.feature && options.feature.delete === false
+            ? null
+            : <renderer.confirm.render type="warning"
+              onOk={() => onDelete(scope)}
+              onCancel={() => {}}
+              content={'是否确认删除'}>
+              <div class="text-red-500 cursor-pointer">删除</div>
+            </renderer.confirm.render>
+        }
+
+      </div>)
     },
   } as TableTemplate)
 
-  const Table = table.render({
+  const Table = renderer.table.render({
     templates: templates as any,
-    feature,
+    feature: options.feature,
   })
 
-  return <Table data={dataProvider.tableData} loading={dataProvider.tableLoading}></Table>
+  return <Table data={dataProvider.tableData} loading={dataProvider.tableLoading}/>
 }

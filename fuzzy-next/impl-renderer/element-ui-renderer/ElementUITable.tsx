@@ -68,7 +68,11 @@ export class ElementUITable implements TableRenderer {
    * @param feature
    */
   shouldFeaturesRender(feature: Feature | undefined): boolean {
-    return !(feature?.update === false || feature?.delete === false)
+    if (feature) {
+      if (feature.update === false && feature.delete === false)
+        return false
+    }
+    return true
   }
 
   /**

@@ -1,4 +1,5 @@
 import type { OptionsConfiguration } from '../../../fuzzy-next/types'
+import type { FuzzyNextHandlers } from '../../../fuzzy-next/types/handler'
 
 export interface CustomTemplate {
   placeholder?: string
@@ -6,7 +7,11 @@ export interface CustomTemplate {
 
 export const options: OptionsConfiguration<CustomTemplate> = {
   title: '这是tab111',
-  api: '/safety/ent/base',
+  api: '/safety/major-hazard',
+  feature: {
+    update: true,
+    delete: true,
+  },
   template: [
     {
       type: 'input',
@@ -32,19 +37,17 @@ export const options: OptionsConfiguration<CustomTemplate> = {
       },
     },
     {
-      type: 'select',
-      options: [
-        { label: '正常', value: 0 },
-        { label: '异常', value: 1 },
-        { label: '注销', value: 2 },
-      ],
-      label: '生产状态',
-      value: 'produceStatus',
-      render({ row }) {
-        return <div>{
-          this.options && this.options.find(i => i.value === row.produceStatus)?.label
-        }</div>
+      label: '级别',
+      value: 'level',
+      type: 'input',
+      visible: {
+        table: true,
       },
+    },
+    {
+      label: '两重点名称',
+      value: 'name',
+      type: 'input',
       visible: {
         table: true,
       },
@@ -96,3 +99,36 @@ export const mockData = [
     field2: 'field2',
   },
 ]
+
+// eslint-disable-next-line vue/one-component-per-file
+export const UpdateComponent = defineComponent({
+  props: ['row'],
+  render(this) {
+    console.log(this.row, '-update')
+    return <div>update</div>
+  },
+})
+
+export const CreateComponent = defineComponent({
+  render() {
+    return <div>create</div>
+  },
+})
+
+export const handlers: FuzzyNextHandlers = {
+  queryBefore: async(params) => {
+    console.log('queryBefore', params)
+    return params
+  },
+  updateBeforePop: (params) => {
+    console.log('updateBeforePop', params)
+  },
+  deleteBefore: async(params) => {
+    console.log('deleteBefore', params)
+
+    return true
+  },
+  updateConfirm: async() => {
+    return true
+  },
+}

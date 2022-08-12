@@ -1,4 +1,5 @@
 import type { Renderer } from '../../types'
+import { ArcoUIConfirm } from './ArcoUIConfirm'
 import { ArcoUIMessage } from './ArcoUIMessage'
 import { ArcoUIButton } from './ArcoUIButton'
 import { ArcoUIDialog } from './ArcoUIDialog'
@@ -15,4 +16,5 @@ export class ArcoUIRenderer implements Renderer {
   page = new ArcoUIPage()
   tab = new ArcoUITab()
   table = new ArcoUITable()
+  confirm = new ArcoUIConfirm()
 }

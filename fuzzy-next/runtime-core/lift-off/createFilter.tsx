@@ -31,7 +31,7 @@ export function createFilter(renderer: Renderer, templates: Templates[], feature
   }
 
   function FilterButton() {
-    return <renderer.button.render onClick={dispatchFilter}>查询</renderer.button.render>
+    return <renderer.button.render type="primary" onClick={dispatchFilter}>查询</renderer.button.render>
   }
 
   // 首次加载
