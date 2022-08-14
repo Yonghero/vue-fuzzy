@@ -25,7 +25,7 @@ export function LiftOff(
   // provide request's methods
   const requestCallback = createRequest(options, request, handlers, dataProvide)
 
-  const Dialog = createDialog(renderer, modalRenderer, handlers, requestCallback, dataProvide)
+  const Dialog = createDialog(renderer, modalRenderer, handlers, requestCallback, dataProvide, options)
 
   // Table Component
   const Table = createTable(
