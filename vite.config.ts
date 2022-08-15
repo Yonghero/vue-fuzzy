@@ -43,7 +43,7 @@ export default defineConfig({
   },
   build: {
     lib: {
-      entry: path.resolve(__dirname, 'core/index.ts'),
+      entry: path.resolve(__dirname, 'fuzzy-next/runtime-core/index.ts'),
       name: 'Fuzzy',
       fileName: format => `vue-fuzzy.${
         format}.js`,

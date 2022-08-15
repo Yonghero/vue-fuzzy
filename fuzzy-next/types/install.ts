@@ -10,7 +10,3 @@ export interface FuzzyInstall {
   requestProvider: (provider: RequestProvider) => FuzzyInstall | (ComponentOptionsMixin)
   layoutProvider: (layoutProvider: LayoutProvider) => FuzzyInstall | (ComponentOptionsMixin)
 }
-
-export interface FuzzyNextProps {
-  options: OptionsConfiguration<any>
-}
