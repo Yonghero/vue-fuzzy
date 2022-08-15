@@ -1,6 +1,8 @@
-import type { LayoutProviderRenderer, ModalRenderer, OptionsConfiguration, Renderer, Templates } from '../../types'
+import type { LayoutProviderRenderer, ModalRenderer, OptionsConfiguration, Renderer } from '../../types'
 import type { FuzzyNextHandlers } from '../../types/handler'
 import type { RequestProvider } from '../../types/requestProvider'
+import { getTemplatesWithFeature } from '../../utils'
+import { createEventBus } from './createEventBus'
 import { createDataProvide } from './createDataProvide'
 import { createDialog } from './createDialog'
 import { createFilter } from './createFilter'
@@ -8,10 +10,11 @@ import { createPage } from './createPage'
 import { createRequest } from './createRequest'
 import { createTable } from './createTable'
 import { createCreateButton } from './createCreateButton'
+import { createModalRenderer } from './createModalRenderer'
 
 export function LiftOff(
   renderer: Renderer,
-  modalRenderer: ModalRenderer,
+  _modalRenderer: ModalRenderer,
   handlers: FuzzyNextHandlers,
   options: OptionsConfiguration<any>,
   mock: any[],
@@ -25,7 +28,13 @@ export function LiftOff(
   // provide request's methods
   const requestCallback = createRequest(options, request, handlers, dataProvide)
 
-  const Dialog = createDialog(renderer, modalRenderer, handlers, requestCallback, dataProvide, options)
+  const eventBus = createEventBus()
+  // warp handlers inject self hooks
+
+  // update & create dialog's content
+  const modalRenderer = createModalRenderer(renderer, options, _modalRenderer, requestCallback, eventBus)
+
+  const Dialog = createDialog(renderer, modalRenderer, handlers, requestCallback, dataProvide, options, eventBus)
 
   // Table Component
   const Table = createTable(
@@ -63,10 +72,4 @@ export function LiftOff(
     Dialog,
     CreateButton,
   }
-}
-
-function getTemplatesWithFeature(templates: Templates[], feature: string): Templates[] {
-  return templates.filter((item) => {
-    return !(item.visible && item.visible[feature] === false)
-  })
 }

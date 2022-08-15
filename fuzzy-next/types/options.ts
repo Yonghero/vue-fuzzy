@@ -1,4 +1,4 @@
-import type { VNode } from 'vue'
+import type { Component, VNode } from 'vue'
 
 /**
  * fuzzy-next supported options
@@ -57,6 +57,15 @@ interface BaseTemplate {
   }
 }
 
+export interface RendererQueryProps {
+  model: any
+  value: string
+}
+
+export interface RendererTableProps{
+  key: string
+  value: string
+}
 /**
  * 每个字段对应的相关信息
  */
@@ -65,6 +74,13 @@ export interface Templates extends
   TableTemplate,
   FormTemplate,
   FilterTemplate {
+
+  renderer?: {
+    filter?: (props: RendererQueryProps) => Component | Element | VNode
+    table?: (props: RendererTableProps) => Component | Element | VNode
+    update?: (props: RendererQueryProps) => Component | Element | VNode
+    create?: (props: RendererQueryProps) => Component | Element | VNode
+  }
 }
 
 /**
@@ -111,6 +127,20 @@ export interface FormTemplate extends BaseTemplate {
    * 表单尺寸
    */
   size?: string
+  // 是否占满一行
+  full?: boolean
+  /**
+   * 一行占几个字段
+   */
+  rowLength?: number
+  /**
+   * 是否只占一半
+   */
+  half?: boolean
+  /**
+   * 是否占满剩余空间
+   */
+  rest?: boolean
   /**
    * 是否多选
    */
@@ -118,7 +148,7 @@ export interface FormTemplate extends BaseTemplate {
   /**
    *  该字段的表单规则 参照element-plus
    */
-  rules?: []
+  rules?: any[]
   /**
    * 是否必填
    */

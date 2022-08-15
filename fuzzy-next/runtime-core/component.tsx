@@ -36,20 +36,30 @@ export function createComponent(globalRenderer: Renderer, globalLayoutProvider: 
     setup(props) {
       console.log(`%c${'-----component setup-----'}`, 'color: #008c8c')
 
+      // 当前组件的模板下标
+      const activeTabIndex = ref(0)
+
       // 合并options 为多tab页做准备
       const mergeOptions = computed(() => {
         if (Array.isArray(props.options))
           return props.options
-        else
-          return [props.options]
+        return [props.options]
       })
-
-      // 当前选中的tab下标
-      const activeTabIndex = ref(0)
 
       // 最新的页面配置
       const activeOptions = computed(() => {
         return mergeOptions.value[activeTabIndex.value]
+      })
+
+      // 合并编辑、新增弹框中的组件
+      const mergeModalRenderer = computed(() => {
+        if (Array.isArray(props.modalRenderer))
+          return props.modalRenderer
+        return [props.modalRenderer]
+      })
+
+      const activeModalRenderer = computed(() => {
+        return mergeModalRenderer.value[activeTabIndex.value]
       })
 
       // Tab Component
@@ -62,7 +72,7 @@ export function createComponent(globalRenderer: Renderer, globalLayoutProvider: 
 
       // 根据activeOptions页面配置动态渲染
       const dynamicLayout = computed(() => {
-        const components = LiftOff(props.renderer, props.modalRenderer, props.handlers, activeOptions.value, props.mock, requestProvider)
+        const components = LiftOff(props.renderer, activeModalRenderer.value, props.handlers, activeOptions.value, props.mock, requestProvider)
         return (
           <props.layoutProvider renderer={{ ...components, Tab: computedTab.value }}></props.layoutProvider>
         )

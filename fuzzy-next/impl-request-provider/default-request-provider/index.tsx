@@ -32,8 +32,22 @@ export class DefaultRequestProvider implements RequestProvider {
       .then(res => this.implResponse(res.data))
   }
 
-  post(url: string, params: any): Promise<any> {
-    return Promise.resolve(undefined)
+  post(url: string, params: any): Promise<Pick<Response, 'message' | 'success' | 'data'>> {
+    console.log('post', params)
+    return Promise.resolve({
+      message: '编辑成功',
+      success: true,
+      data: 0,
+    })
+  }
+
+  put(url: string, params: any): Promise<Pick<Response, 'message' | 'success' | 'data'>> {
+    console.log('put', params)
+    return Promise.resolve({
+      message: '编辑成功',
+      success: true,
+      data: 0,
+    })
   }
 
   implResponse(response: LTResponse): Response {

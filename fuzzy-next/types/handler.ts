@@ -43,3 +43,8 @@ export interface FuzzyNextHandlers {
      */
   updateCancel?: (params: HandlerParams) => any
 }
+
+export interface PrivateHandlers {
+  triggerConfirm: (params: HandlerParams, type) => Promise<boolean>
+  listenConfirm: () => Promise<boolean>
+}

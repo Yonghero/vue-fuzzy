@@ -1,6 +1,7 @@
 import type { ModalRenderer, OptionsConfiguration, Renderer, TableTemplate, Templates } from '../../types'
 import type { FuzzyNextHandlers } from '../../types/handler'
 import type { RequestCallback } from '../../types/requestProvider'
+import { mapTemplatesRenderer } from '../../utils'
 import type { DataProvider } from './createDataProvide'
 
 export function createTable(renderer: Renderer, modalRenderer: ModalRenderer, handlers: FuzzyNextHandlers, templates: Partial<Templates>[], dataProvider: DataProvider, requestCallback: RequestCallback, options: OptionsConfiguration<any>): any {
@@ -60,7 +61,7 @@ export function createTable(renderer: Renderer, modalRenderer: ModalRenderer, ha
   } as TableTemplate)
 
   const Table = renderer.table.render({
-    templates: templates as any,
+    templates: mapTemplatesRenderer(templates as any, 'table'),
     feature: options.feature,
   })
 

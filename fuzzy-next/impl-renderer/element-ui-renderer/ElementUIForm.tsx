@@ -1,27 +1,60 @@
+import type { FormInstance } from 'element-plus'
 import { ElForm, ElFormItem } from 'element-plus'
-import { reactive } from 'vue'
 import type { VNode } from 'vue'
+import { reactive, ref } from 'vue'
 import type { FormCompProps, FormItem, FormRenderProps, FormRenderer, Templates } from '../../types'
 
 export class ElementUIForm implements FormRenderer {
-  render({ templates }: FormRenderProps) {
+  isHorizontal = false
+  shouldWarpEvenly = true
+
+  create({ templates, isHorizontal, labelPosition, shouldWarpEvenly, shouldValidate = true }: FormRenderProps) {
+    this.isHorizontal = isHorizontal
+    this.shouldWarpEvenly = shouldWarpEvenly === undefined
+    // 获取数据模型
     const model = this.getModel(templates)
+    // 获取表单项组件
     const FormItems = this.getFromItems(templates, model)
+    // 获取表单项的验证规则
+    const rules = shouldValidate ? this.getRules(templates) : []
+    // 获取组件实例
+    const formRef = ref<FormInstance>()
 
     return {
-      render: (
-        <ElForm model={model} class="flex flex-wrap gap-x-5"
-          style={{
-            display: 'flex',
-          }}
-        >
-          {
-            FormItems
-          }
-        </ElForm>
-      ),
+      render: defineComponent({
+        setup() {
+          return () => (
+            <ElForm
+              class="custom-el-form w-full"
+              model={model}
+              rules={rules}
+              ref={formRef}
+              label-position={labelPosition}
+              inline={isHorizontal}
+            >
+              {
+                FormItems
+              }
+            </ElForm>
+          )
+        },
+      }),
       model,
+      formRef,
     }
+  }
+
+  getRules(templates: Templates[]) {
+    return reactive(templates.reduce((rules, item) => {
+      rules[item.value] = []
+      // 必填
+      if (item.require)
+        rules[item.value].push({ required: true, trigger: 'change' })
+      // 其他规则
+      if (item.rules)
+        rules[item.value].push(...item.rules)
+      return rules
+    }, {}))
   }
 
   /**
@@ -48,11 +81,42 @@ export class ElementUIForm implements FormRenderer {
       return (
         <ElFormItem
           label={item.label}
-          key={item.value}>
-          <FormItemComp {...item} model={model}/>
+          key={item.value}
+          style={this.getFromStyle(item)}
+          prop={item.value}
+        >
+          {
+            item.render
+              ? <item.render model={model} value={item.value}></item.render>
+              : <FormItemComp {...item} model={model}/>
+          }
+
         </ElFormItem>
       )
     })
+  }
+
+  getFromStyle(item: Templates) {
+    const inlineLength = item.rowLength || 2
+    const style = {
+      width: (!this.isHorizontal ? `calc(100% / ${inlineLength} - 32px)` : ''),
+    }
+
+    if (this.shouldWarpEvenly)
+      style.width = `calc(100% / ${inlineLength} - 32px)`
+
+    const { full, width, rest, half } = item
+    if (full)
+      style.width = '100%'
+    if (half)
+      style.width = 'calc(50% - 32px)'
+
+    if (width)
+      style.width = width.toString()
+    if (!this.isHorizontal && rest)
+      style.width = `calc(100% * ${inlineLength - 1} / ${inlineLength} - 32px)`
+
+    return style
   }
 
   _getFormComponent(type: FormItem) {

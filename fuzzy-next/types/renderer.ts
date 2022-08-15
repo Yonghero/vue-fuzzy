@@ -44,7 +44,7 @@ export type FormItemExtra<cmpName extends string, cmp extends Component> = {
 export type FormCompProps = Partial<FormTemplate> & { model: any; value: any }
 
 export interface FormRenderer extends FormItemExtra<any, any>{
-  render: (props: FormRenderProps) => { render: VNode; model: any }
+  create: (props: FormRenderProps) => { render: Component | any; model: any; formRef: Ref<any> }
   getModel: (templates: Templates[]) => Record<string, any> | Ref<Record<string, any>>
   getFromItems: (templates: Templates[], model) => VNode[]
   select: (props: FormCompProps, context: SetupContext) => VNode
@@ -53,8 +53,17 @@ export interface FormRenderer extends FormItemExtra<any, any>{
 
 export interface FormRenderProps{
   templates: Templates[]
-  feature: Feature | undefined
+  labelPosition?: string
+  feature?: Feature | undefined
   isHorizontal: boolean
+  /**
+   * formItem 是否换行内均分 默认开启
+   */
+  shouldWarpEvenly?: boolean
+  /**
+   * 是否启动校验规则 默认开启
+   */
+  shouldValidate?: boolean
 }
 
 /**
@@ -98,6 +107,7 @@ export interface DialogRenderProps {
   footer?: VNode[]
   style?: ModalStyleProps
   onUpdate?: (scope: any) => void // vue emit
+  onCancel?: (scope: any) => void // vue emit
 }
 
 export interface MessageRender {

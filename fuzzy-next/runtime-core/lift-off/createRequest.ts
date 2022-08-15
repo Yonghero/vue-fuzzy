@@ -35,6 +35,12 @@ export function createRequest(options: OptionsConfiguration<any>, request: Reque
     delete: (params) => {
       return request.delete(getApiOfMode('delete'), params)
     },
+    put: async(params: Record<string, any>) => {
+      return request.put(getApiOfMode('update'), params)
+    },
+    post: async(params: Record<string, any>) => {
+      return request.post(getApiOfMode('create'), params)
+    },
     urls: {
       filter: getApiOfMode('filter'),
       update: getApiOfMode('update'),

@@ -83,7 +83,7 @@ export class ElementUITable implements TableRenderer {
   _getColumn(item: TableTemplate, scope: any) {
     // custom render
     if (item.render)
-      return (item.render(scope))
+      return (item.render({ ...scope, key: item.value, value: scope.row[item.value] }))
 
     return (scope.row[item.value] || scope.row[item.value] === 0 ? scope.row[item.value] : '-')
   }

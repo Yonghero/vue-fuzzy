@@ -22,7 +22,10 @@ export class ElementUIDialog implements DialogRenderer {
             type="primary"
             class="btn reset"
             plain
-            onClick={() => emit('update:modelValue', false)}
+            onClick={() => {
+              emit('update:modelValue', false)
+              emit('cancel', scope)
+            }}
           >取消</button.render>
           <button.render
             type="primary"
@@ -38,8 +41,9 @@ export class ElementUIDialog implements DialogRenderer {
         custom-class="rounded-[10px]"
         closeOnClickModal={false}
         show-close={false}
+        destroy-on-close={true}
         v-model={props.modelValue}
-        width={props.style?.width || '60%'}
+        width={props.style?.width || '50%'}
         top={props.style?.top || '15vh'}
       >
         {

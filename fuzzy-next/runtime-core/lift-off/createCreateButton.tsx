@@ -18,7 +18,7 @@ export function createCreateButton(renderer: Renderer, modalRenderer: ModalRende
   }
 
   return <renderer.button.render
-    type={'update'}
+    type={'create'}
     onClick={onCreate}
   >新增
   </renderer.button.render>

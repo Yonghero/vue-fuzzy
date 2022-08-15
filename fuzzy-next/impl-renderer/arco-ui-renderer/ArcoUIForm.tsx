@@ -3,7 +3,7 @@ import { computed, reactive } from 'vue'
 import type { FormCompProps, FormItem, FormRenderProps, FormRenderer, Templates } from '../../types'
 
 export class ArcoUIForm implements FormRenderer {
-  render({ templates }: FormRenderProps) {
+  create({ templates }: FormRenderProps) {
     const model = this.getModel(templates)
 
     const FormItems = this.getFromItems(templates, model)
