@@ -18,6 +18,6 @@
     },
   },
   "types": ["element-plus/global", "playground/typings/*.d.ts"],
-  "include": ["core/**/*.ts", "core/**/*.tsx", "core/**/*.vue", "playground/**/*.ts", "playground/**/*.d.ts", "playground/**/*.tsx", "playground/**/*.vue"],
+  "include": ["fuzzy-next/**/*.ts", "fuzzy-next/**/*.tsx", "fuzzy-next/**/*.vue", "playground/**/*.ts", "playground/**/*.d.ts", "playground/**/*.tsx", "playground/**/*.vue"],
   "exclude": ["lib", "node_modules"]
 }

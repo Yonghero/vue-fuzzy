@@ -1,6 +1,6 @@
 {
   "name": "@yh/vue-fuzzy",
-  "version": "0.0.2",
+  "version": "0.0.1",
   "description": "On the background management system Fuzzy Provides one - stop add, delete, change and check configurable component",
   "keywords": [
     "npm",
@@ -18,20 +18,25 @@
   "homepage": "https://github.com/Yonghero/vue-fuzzy.git",
   "exports": {
     ".": {
-      "import": "./lib/vue-fuzzy.es.js",
-      "require": "./lib/vue-fuzzy.es.js"
+      "import": "./lib/fuzzy-core.es.js",
+      "require": "./lib/fuzzy-core.es.js"
     },
-    "./style": {
-      "import": "./lib/style.css",
-      "require": "./lib/style/.css"
+    "./renderer" : {
+      "import": "./lib/fuzzy-renderer.es.js",
+      "require": "./lib/fuzzy-renderer.umd.js"
+    },
+    "./layoutProvider" : {
+      "import": "./lib/fuzzy-layoutProvider.es.js",
+      "require": "./lib/fuzzy-layoutProvider.umd.js"
     }
   },
-  "main": "./lib/vue-fuzzy.umd.js",
-  "module": "./lib/vue-fuzzy.es.js",
   "types": "./lib/index.d.ts",
   "scripts": {
     "dev": "vite --force",
-    "build": "vite build && tsc -p ./tsconfig.build.json",
+    "build": "npm run build:core && npm run build:layout && npm run build:renderer",
+    "build:core":"LIB_NAME=core vite build && tsc -p ./tsconfig.build.json",
+    "build:renderer":"LIB_NAME=renderer vite build && tsc -p ./tsconfig.build.json",
+    "build:layout":"LIB_NAME=layoutProvider vite build && tsc -p ./tsconfig.build.json",
     "preview": "vite preview",
     "test": "vitest",
     "pub": "npm run build && npm version patch && npm publish --access public --force"

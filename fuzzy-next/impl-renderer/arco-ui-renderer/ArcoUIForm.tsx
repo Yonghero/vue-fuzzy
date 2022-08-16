@@ -7,16 +7,20 @@ export class ArcoUIForm implements FormRenderer {
     const model = this.getModel(templates)
 
     const FormItems = this.getFromItems(templates, model)
-
+    const formRef = ref()
     return {
       render: (
-        <a-form model={model} layout={'inline'} size={'medium'}>
+        <a-form model={model}
+          layout={'inline'}
+          ref={formRef}
+          size={'medium'}>
           {
             FormItems
           }
         </a-form>
       ),
       model,
+      formRef,
     }
   }
 
