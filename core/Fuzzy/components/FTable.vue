@@ -76,15 +76,19 @@
             >
               编辑
             </div>
-            <div
+            <Confirm
               v-if="tableModel?.feature?.delete"
-              type="text"
-              size="small"
-              style="color: #F64F42;cursor: pointer;"
-              @click="handleOperator(OperatorCmd.delete, scope)"
+              @ok="handleOperator(OperatorCmd.delete,scope)"
+              @cancel="() => {}"
             >
-              删除
-            </div>
+              <div
+                type="text"
+                size="small"
+                style="color: #F64F42;cursor: pointer;"
+              >
+                删除
+              </div>
+            </Confirm>
           </div>
         </template>
       </el-table-column>
@@ -95,6 +99,7 @@
 <script setup lang='ts'>
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { BarModelProvide, FuzzyHandlerProvide, OperatorCmd, PagingModelProvide, RequestModelProvide, TableModelProvide } from '../types'
+import { Confirm } from './Confirm'
 
 const tableModel = inject(TableModelProvide)
 const pagingModel = inject(PagingModelProvide)
@@ -136,37 +141,45 @@ const handleOperator = (cmd: OperatorCmd, row: any) => {
         ? fuzzyHandler.deleteBefore({ data: { ...row }, url: requestFuzzy.value.getApiOfReqMode('delete') })
         : { }
 
-      ElMessageBox.confirm(
-        '此操作将永久删除数据,是否继续',
-        '提示',
-        {
-          confirmButtonText: '取消',
-          cancelButtonText: '确定',
-          type: 'warning',
-          showClose: false,
-          closeOnClickModal: false,
-        },
-      )
-        .then(() => {
-          ElMessage({
-            type: 'info',
-            message: '已经取消删除',
-          })
+      requestFuzzy.value.delete(row.row.id, body).then(() => {
+        ElMessage({
+          type: 'success',
+          message: '已成功删除数据',
         })
-        .catch(() => {
-          requestFuzzy.value.delete(row.row.id, body).then(() => {
-            ElMessage({
-              type: 'success',
-              message: '已成功删除数据',
-            })
-            requestFuzzy.value.get()
-          }).catch(() => {
-            ElMessage({
-              type: 'warning',
-              message: '删除数据失败',
-            })
-          })
-        })
+        requestFuzzy.value.get()
+      })
+
+      // ElMessageBox.confirm(
+      //   '此操作将永久删除数据,是否继续',
+      //   '提示',
+      //   {
+      //     confirmButtonText: '取消',
+      //     cancelButtonText: '确定',
+      //     type: 'warning',
+      //     showClose: false,
+      //     closeOnClickModal: false,
+      //   },
+      // )
+      //   .then(() => {
+      //     ElMessage({
+      //       type: 'info',
+      //       message: '已经取消删除',
+      //     })
+      //   })
+      //   .catch(() => {
+      //     requestFuzzy.value.delete(row.row.id, body).then(() => {
+      //       ElMessage({
+      //         type: 'success',
+      //         message: '已成功删除数据',
+      //       })
+      //       requestFuzzy.value.get()
+      //     }).catch(() => {
+      //       ElMessage({
+      //         type: 'warning',
+      //         message: '删除数据失败',
+      //       })
+      //     })
+      //   })
     },
     [OperatorCmd.update]: (row: any) => {
       const expose = { data: { ...row }, current: barModel }
