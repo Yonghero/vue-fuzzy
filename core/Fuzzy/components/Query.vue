@@ -5,7 +5,6 @@
   >
     <el-form
       v-if="queryModel.data.length > 0"
-      size="default"
       :inline="true"
       :model="queryModel.model"
       class="demo-form-inline"
@@ -80,7 +79,6 @@
       </el-form-item>
       <el-button
         type="primary"
-        size="default"
         style="margin-bottom: 18px;"
         @click="handleEvent"
       >
