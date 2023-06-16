@@ -4,7 +4,6 @@
       v-loading="tableModel.tableLoading"
       :data="tableModel.model"
       border
-      size="large"
       style="width: 100%"
       @selection-change="handleSelectionChange"
     >
@@ -83,7 +82,6 @@
             >
               <div
                 type="text"
-                size="small"
                 style="color: #F64F42;cursor: pointer;"
               >
                 删除
